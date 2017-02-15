@@ -15,6 +15,6 @@ body {
     justify-content: center;
 }
 
-.splash-card div button {
+.splash-card div a {
     margin: 4px;
 }

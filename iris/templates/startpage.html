@@ -11,6 +11,27 @@
 <body>
 <div class="mdl-card mdl-shadow--2dp splash-card">
     <div>
+        <a href="{{ url_for('index') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Student
+        </a>
+        <a href="{{ url_for('index') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+            Lecturer
+        </a>
+    </div>
+</div>
+</body>
+</html>
+
+{#
+{% extends "base.html" %}
+{% block title %}IRIS - start{% endblock title %}
+{% block head %}
+<link rel="stylesheet" href="../static/css/base.css">
+{% endblock head %}
+
+{% block content %}
+<div class="mdl-card mdl-shadow--2dp splash-card">
+    <div>
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
             Student
         </button>
@@ -19,5 +40,4 @@
         </button>
     </div>
 </div>
-</body>
-</html>
+{% endblock content %}#}
