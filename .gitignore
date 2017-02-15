@@ -134,4 +134,7 @@ ENV/
 # Rope project settings
 .ropeproject
 
+# db_repository
+db_repository/
+
 # End of https://www.gitignore.io/api/python,intellij,git
