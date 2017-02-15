@@ -10,6 +10,11 @@ def index():
     return render_template('index.html', texts=all_texts)
 
 
+@app.route('/startpage')
+def startpage():
+    return render_template('startpage.html')
+
+
 @socketio.on('my_event')
 def handle_text(message):
     new_text = models.Text(content=message)
