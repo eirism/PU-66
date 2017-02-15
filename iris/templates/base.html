@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/material.min.css') }}">-->
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">-->
+    <link rel="stylesheet" href="../static/css/vendor/material.min.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>{% block title %}{% endblock title %}</title>
+    {% block head %}
+    {% endblock head %}
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <a id="base_title" class="mdl-layout__title" href="#">I.R.I.S.</a>
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="#">Navigation link1</a>
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    {% block content %}
+    {% endblock content%}
+
+    <!--<script src="{{ url_for('static', filename='js/vendor/material.min.js') }}"></script>-->
+    <script src="../static/js/vendor/material.min.js"></script>
+</body>
+</html>
