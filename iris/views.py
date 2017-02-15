@@ -9,6 +9,9 @@ def index():
     all_texts = models.Text.query.all()
     return render_template('index.html', texts=all_texts)
 
+@app.route('/lecturer/session')
+def session():
+    return render_template('lecturer_session.html')
 
 @app.route('/startpage')
 def startpage():
