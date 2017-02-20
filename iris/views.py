@@ -10,8 +10,9 @@ def index():
     return render_template('index.html', texts=all_texts)
 
 @app.route('/lecturer/session')
-def session():
+def session_control():
     return render_template('lecturer_session.html')
+
 
 @app.route('/startpage')
 def startpage():
