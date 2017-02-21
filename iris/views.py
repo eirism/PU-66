@@ -6,17 +6,24 @@ from iris import app, models, db, socketio
 @app.route('/')
 @app.route('/index')
 def index():
-    all_texts = models.Text.query.all()
-    return render_template('index.html', texts=all_texts)
+    return render_template('startpage.html')
+
+
+@app.route('/student')
+def student():
+    return 'Hello, student'
+
+
+@app.route('/lecturer')
+def lecturer():
+    return redirect(url_for('session_control'))
+
 
 @app.route('/lecturer/session')
 def session_control():
     return render_template('lecturer_session.html')
 
 
-@app.route('/startpage')
-def startpage():
-    return render_template('startpage.html')
 
 
 @socketio.on('my_event')
