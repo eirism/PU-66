@@ -8,7 +8,7 @@ from iris import app, models, db, socketio
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('startpage.html')
+    return render_template('index.html')
 
 
 @app.route('/student')
@@ -26,6 +26,9 @@ def session_control():
     return render_template('lecturer_session.html')
 
 
+@app.route('/chat')
+def chat():
+    return render_template('chat.html')
 
 
 @socketio.on('my_event')
