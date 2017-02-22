@@ -5,6 +5,6 @@
     padding: 16px;
 }
 
-.counts span:not(last-child) {
+.counts span:not(:last-child) {
     margin-right: 64px;
 }
