@@ -21,7 +21,7 @@ def student_feedback(course):
     course_id = get_course_id(course)
     l_session = get_lecture_session(course_id)
     actions = app.config['BUTTON_ACTIONS']
-    return render_template('chat.html',
+    return render_template('student_session.html',
                            course_id=course_id,
                            actions=actions,
                            active=l_session.active)
