@@ -40,7 +40,8 @@ def session_control(course):
     return render_template('lecturer_session.html',
                            course_id=course_id,
                            counts=counts,
-                           actions=actions)
+                           actions=actions,
+                           active=l_session.active)
 
 
 @socketio.on('student_send')
