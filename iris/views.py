@@ -18,25 +18,29 @@ def student():
 
 @app.route('/student/<course>')
 def student_feedback(course):
-    # TODO: Get course ID from database, course name = course
-    course_id = COURSE_ID
+    course_id = get_course_id(course)
+    actions = app.config['BUTTON_ACTIONS']
+    return render_template('chat.html', course_id=course_id, actions=actions)
+
+
+@app.route('/lecturer')
+def lecturer():
+    return redirect(url_for('session_control', course=1))
+
+
+@app.route('/lecturer/<course>/session')
+def session_control(course):
+    course_id = get_course_id(course)
     l_session = get_lecture_session(course_id)
     counts = dict()
     actions = app.config['BUTTON_ACTIONS']
     for action in actions:
         s_feedback = get_session_feedback(l_session.session_id, action[0])
         counts[action[0]] = s_feedback.count
-    return render_template('chat.html', course_id=course_id, counts=counts, actions=actions)
-
-
-@app.route('/lecturer')
-def lecturer():
-    return redirect(url_for('session_control'))
-
-
-@app.route('/lecturer/session')
-def session_control():
-    return render_template('lecturer_session.html')
+    return render_template('lecturer_session.html',
+                           course_id=course_id,
+                           counts=counts,
+                           actions=actions)
 
 
 @socketio.on('student_send')
@@ -77,6 +81,11 @@ def handle_lecturer_send(message):
 @socketio.on('join')
 def client_connect(message):
     join_room(message['course_id'])
+
+
+def get_course_id(course_name):
+    # TODO: get correct course_name
+    return COURSE_ID
 
 
 def get_lecture_session(course_id):
