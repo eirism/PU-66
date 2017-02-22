@@ -11,41 +11,14 @@
     <div class="mdl-card__actions mdl-card--border">
         {% for action in actions %}
             <button id="{{ action[0] }}"
-                    class="bigbutton action_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">{{ action[1] }}</button>
+                    class="action_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">{{ action[1] }}</button>
         {% endfor %}
     </div>
 
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="{{ url_for('static', filename="js/student.js") }}"></script>
     <script>
-        function lockoutSubmit(button) {
-            let oldValue = button.value;
-
-            button.setAttribute('disabled', true);
-            button.value = '...processing...';
-
-            setTimeout(function () {
-                    button.value = oldValue;
-                    button.removeAttribute('disabled');
-                }
-                , 3000)
-        }
-        var socket = io();
-        socket.emit('join', {'course_id': {{ course_id }}});
-
-        $('form').submit(function () {
-            var m_field = $('#m');
-            var data = {'action': m_field.val()};
-            console.log('Submitted: ' + data);
-            socket.emit('student_send', data);
-            m_field.val('');
-            return false;
-        });
-
-        $('.action_button').click(function (eventObj) {
-            console.log(eventObj['currentTarget']['id']);
-            var data = {'action': eventObj['currentTarget']['id'], 'course_id': {{ course_id}}};
-            socket.emit('student_send', data)
-        });
+    let course_id = {{ course_id }}
     </script>
 {% endblock content %}
