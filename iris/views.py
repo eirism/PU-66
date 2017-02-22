@@ -19,8 +19,12 @@ def student():
 @app.route('/student/<course>')
 def student_feedback(course):
     course_id = get_course_id(course)
+    l_session = get_lecture_session(course_id)
     actions = app.config['BUTTON_ACTIONS']
-    return render_template('chat.html', course_id=course_id, actions=actions)
+    return render_template('chat.html',
+                           course_id=course_id,
+                           actions=actions,
+                           active=l_session.active)
 
 
 @app.route('/lecturer')
@@ -75,6 +79,8 @@ def handle_lecturer_send(message):
         l_session.active = True
     elif new_state == 'stop':
         l_session.active = False
+    emit('lecturer_recv', {'active': l_session.active}, room=course_id)
+    emit('student_recv', {'active': l_session.active}, room=course_id)
     db.session.add(l_session)
     db.session.commit()
 
