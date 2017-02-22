@@ -24,3 +24,14 @@ body {
     background-color: #E91E63;
     color: #fff;
 }
+
+.feedback {
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.feedback button {
+    margin: 4px;
+    width: calc(50% - 8px);
+}
