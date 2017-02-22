@@ -4,27 +4,60 @@
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form { background: rgb(33,150,243); padding: 3px; position: fixed; bottom: 0; width: 100%; }
       form input { border: 0; padding: 10px; width: 85%; margin-right: .5%; }
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      button {width: 200px;}
     </style>
  {% endblock head %}
 
  {% block content %}
-    <form action="">
+
+    <!--
+     <form action="">
         <input title="Type text to save" type="text" id="m" autocomplete="off">
-        <button>Send (save)</button>
+        <button>Send message</button>
     </form>
-    <ul>
-        {% for action in actions %}
-        <li><button id="{{ action[0] }}" class="action_button">{{ action[1] }}:</button><span id="text_{{ action[0] }}">{{ counts[action[0]] }}</span></li>
+    -->
+
+     <div class="mdl-layout__content">
+    <div class="mdl-grid mdl-typography--text-center">
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-cell mdl-cell--2-col">
+            <p>The student may give feedback on the lecture</p>
+            <ul>
+         {% for action in actions %}
+             <button id="{{ action[0] }}" class="bigbutton action_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">{{ action[1] }}</button>
         {% endfor %}
-    </ul>
+     </ul>
+        </div>
+        <div class="mdl-layout-spacer"></div>
+    </div>
+</div>
+
+
+
+    <!--
     <button id="start" class="session_control">Start</button>
     <button id="stop" class="session_control">Stop</button>
+    -->
+
+
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
     <script>
+    function lockoutSubmit(button) {
+    var oldValue = button.value;
+
+    button.setAttribute('disabled', true);
+    button.value = '...processing...';
+
+    setTimeout(function(){
+        button.value = oldValue;
+        button.removeAttribute('disabled');
+    }, 3000)
+}
         var socket = io();
         socket.emit('join', {'course_id': {{ course_id }}});
 
@@ -54,4 +87,6 @@
             $('#text_' + msg['action'][0]).html(msg['action'][1]);
         });
     </script>
+
+
  {% endblock content %}
