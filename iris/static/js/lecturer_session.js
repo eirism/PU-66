@@ -7,6 +7,14 @@ const feedbackmsg = document.getElementById("lecturer_message")
 let socket = io();
 socket.emit('join', {'course_id': courseID});
 
+if(sessionActive == "True"){
+    button_start.disabled = true;
+    button_stop.disabled = false;
+}else{
+    button_start.disabled = false;
+    button_stop.disabled = true;
+}
+
 button_start.onclick = function () {
     button_start.disabled = true;
     button_stop.disabled = false;
@@ -32,4 +40,6 @@ button_stop.onclick = function () {
 socket.on('lecturer_recv', function (msg) {
     console.log(msg['action']);
     $('#text_' + msg['action'][0]).html(msg['action'][1]);
+
+
 });
