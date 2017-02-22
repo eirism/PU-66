@@ -6,6 +6,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'change-this-for-production')
 DEBUG = os.environ.get('DEBUG', 0)
 SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 BUTTON_ACTIONS = [
     ['slow', 'Slow'],

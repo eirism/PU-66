@@ -1,0 +1,13 @@
+.splash-card {
+    display: flex;
+    justify-content: center;
+}
+
+.splash-card div {
+    display: flex;
+    justify-content: center;
+}
+
+.splash-card div a {
+    margin: 4px;
+}

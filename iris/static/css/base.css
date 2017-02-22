@@ -1,20 +1,28 @@
+@import url(index.css);
+
 body {
     background-color: #E3F2FD;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
-.splash-card {
-    display: flex;
-    justify-content: center;
+.mdl-layout__header {
+    margin-bottom: 32px;
 }
 
-.splash-card div {
-    display: flex;
-    justify-content: center;
+.mdl-layout__title:link, .mdl-layout__title:visited, .mdl-layout__title:hover, .mdl-layout__title:active{
+    color: white;
+    text-decoration: none;
 }
 
-.splash-card div a {
-    margin: 4px;
+.mdl-cell .mdl-card {
+    width: 100%;
+    min-height: inherit;
+}
+
+.mdl-card__title {
+    background-color: #E91E63;
+    color: #fff;
 }
