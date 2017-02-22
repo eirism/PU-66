@@ -15,10 +15,11 @@
         {% endfor %}
     </div>
 
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="{{ url_for('static', filename="js/student.js") }}"></script>
     <script>
     let course_id = {{ course_id }}
     </script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="{{ url_for('static', filename="js/student.js") }}"></script>
+
 {% endblock content %}
