@@ -4,39 +4,39 @@ const feedbackmsg = document.getElementById("lecturer_message");
 let socket = io();
 socket.emit('join', {'course_id': courseID});
 
-function DisableStart(){
+function disableStart(){
     button_start.disabled = true;
     button_stop.disabled = false;
     feedbackmsg.innerHTML = "Session active";
 }
 
-function DisableStop(){
+function disableStop(){
     button_start.disabled = false;
     button_stop.disabled = true;
     feedbackmsg.innerHTML = "Session not active";
 }
 
 if(sessionActive == "True"){
-    DisableStart();
+    disableStart();
 }else{
-    DisableStop();
+    disableStop();
 }
 
 button_start.onclick = function () {
-    DisableStart();
+    disableStart();
 
     console.log("SESSION START");
     let data = {'session_control': 'start', 'course_id': courseID};
     socket.emit('lecturer_send', data);
-}
+};
 
 button_stop.onclick = function () {
-    DisableStop();
+    disableStop();
 
     console.log("SESSION STOP");
     let data = {'session_control': 'stop', 'course_id': courseID};
     socket.emit('lecturer_send', data);
-}
+};
 
 socket.on('lecturer_recv', function (msg) {
     if(msg.hasOwnProperty('action')) {
@@ -45,9 +45,9 @@ socket.on('lecturer_recv', function (msg) {
     }else if(msg.hasOwnProperty('active')) {
         console.log(msg['active']);
         if(msg['active']) {
-            DisableStart();
+            disableStart();
         }else {
-            DisableStop();
+            disableStop();
         }
     }
 });

@@ -57,5 +57,5 @@ button_hard.addEventListener("click", timeOutDifficulty);
 $('.action_button').click(function (eventObj) {
     console.log(eventObj['currentTarget']['id']);
     let data = {'action': eventObj['currentTarget']['id'], 'course_id': courseID};
-    socket.emit('student_send', data)
+    socket.emit('student_send', data);
 });
