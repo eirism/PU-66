@@ -27,6 +27,7 @@
     <script>
         var socket = io();
         socket.emit('join', {'course_id': {{ course_id }}});
+
         $('form').submit(function(){
             var m_field = $('#m');
             var data = {'action': m_field.val()};
