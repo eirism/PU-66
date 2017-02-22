@@ -1,6 +1,3 @@
-/**
- * Created by Mathias on 15.02.17.
- */
 const button_start = document.getElementById("button_start");
 const button_stop = document.getElementById("button_stop");
 const feedbackmsg = document.getElementById("lecturer_message")
@@ -39,7 +36,5 @@ button_stop.onclick = function () {
 
 socket.on('lecturer_recv', function (msg) {
     console.log(msg['action']);
-    $('#text_' + msg['action'][0]).html(msg['action'][1]);
-
-
+    $('#text_' + msg['action'][0]).attr("data-badge", msg['action'][1]);
 });
