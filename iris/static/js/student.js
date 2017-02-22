@@ -54,15 +54,6 @@ function timeOutDifficulty(){
 button_easy.addEventListener("click", timeOutDifficulty);
 button_hard.addEventListener("click", timeOutDifficulty);
 
-$('form').submit(function(){
-    let m_field = $('#m');
-    let data = {'action': m_field.val()};
-    console.log('Submitted: ' + data);
-    socket.emit('student_send', data);
-    m_field.val('');
-    return false;
-});
-
 $('.action_button').click(function (eventObj) {
     console.log(eventObj['currentTarget']['id']);
     let data = {'action': eventObj['currentTarget']['id'], 'course_id': courseID};
