@@ -1,20 +1,17 @@
 {% extends "base.html" %}
-{% block title %}IRIS - session{% endblock title%}
+{% block title %}IRIS - session{% endblock title %}
 
 {% block content %}
-<div class="mdl-layout__content">
-    <div class="mdl-grid mdl-typography--text-center">
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-cell mdl-cell--2-col">
-            <p>The lecturer may start and stop a feedback session</p>
-            <button id="button_start" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Start</button>
-            <button id="button_stop" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" disabled>Stop</button>
-        </div>
-        <div class="mdl-layout-spacer"></div>
+    <div class="mdl-typography--text-center">
+        <p>The lecturer may start and stop a feedback session</p>
+        <button id="button_start" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Start
+        </button>
+        <button id="button_stop" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" disabled>
+            Stop
+        </button>
     </div>
-</div>
 {% endblock content %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/lecturer_session.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lecturer_session.js') }}"></script>
 {% endblock scripts %}
