@@ -1,3 +1,5 @@
+@import url(index.css);
+
 body {
     background-color: #E3F2FD;
     display: flex;
@@ -5,16 +7,6 @@ body {
     align-items: center;
 }
 
-.splash-card {
-    display: flex;
-    justify-content: center;
 }
 
-.splash-card div {
-    display: flex;
-    justify-content: center;
-}
-
-.splash-card div a {
-    margin: 4px;
 }
