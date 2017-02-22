@@ -5,6 +5,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.mdl-layout__header {
+    margin-bottom: 32px;
 }
 
 #base_title:link, #base_title:visited, #base_title:hover, #base_title:active{
@@ -14,4 +19,10 @@ body {
 
 .mdl-cell .mdl-card {
     width: 100%;
+    min-height: inherit;
+}
+
+.mdl-card__title {
+    background-color: #E91E63;
+    color: #fff;
 }
