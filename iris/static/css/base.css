@@ -12,7 +12,7 @@ body {
     margin-bottom: 32px;
 }
 
-#base_title:link, #base_title:visited, #base_title:hover, #base_title:active{
+.mdl-layout__title:link, .mdl-layout__title:visited, .mdl-layout__title:hover, .mdl-layout__title:active{
     color: white;
     text-decoration: none;
 }
