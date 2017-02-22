@@ -3,6 +3,10 @@
  */
 
 var socket = io();
+const timeOut = 15000;
+
+socket.emit('join', {'course_id': course_id });
+
 function enableAllButtons () {
         document.getElementById("slow").disabled = false;
         document.getElementById("fast").disabled = false;
@@ -28,8 +32,6 @@ socket.on('student_recv', function (msg) {
     }
 });
 
-const timeOut = 15000;
-
 function timeOutPace(){
     document.getElementById("slow").disabled = true;
     document.getElementById("fast").disabled = true;
@@ -51,9 +53,6 @@ function timeOutDifficulty(){
 }
 document.getElementById("easy").addEventListener("click", timeOutDifficulty);
 document.getElementById("hard").addEventListener("click", timeOutDifficulty);
-
-
-socket.emit('join', {'course_id': course_id });
 
 $('form').submit(function(){
     var m_field = $('#m');
