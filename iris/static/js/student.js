@@ -1,24 +1,24 @@
-/**
- * Created by s on 22.02.17.
- */
-
-var socket = io();
+const button_slow = document.getElementById("slow");
+const button_fast = document.getElementById("fast");
+const button_easy = document.getElementById("easy");
+const button_hard = document.getElementById("hard");
 const timeOut = 15000;
 
+let socket = io();
 socket.emit('join', {'course_id': course_id });
 
-function enableAllButtons () {
-        document.getElementById("slow").disabled = false;
-        document.getElementById("fast").disabled = false;
-        document.getElementById("easy").disabled = false;
-        document.getElementById("hard").disabled = false;
+function enableAllButtons() {
+        button_slow.disabled = false;
+        button_fast.disabled = false;
+        button_easy.disabled = false;
+        button_hard.disabled = false;
 }
 
-function disableAllButtons () {
-        document.getElementById("slow").disabled = true;
-        document.getElementById("fast").disabled = true;
-        document.getElementById("easy").disabled = true;
-        document.getElementById("hard").disabled = true;
+function disableAllButtons() {
+        button_slow.disabled = true;
+        button_fast.disabled = true;
+        button_easy.disabled = true;
+        button_hard.disabled = true;
 }
 
 socket.on('student_recv', function (msg) {
@@ -26,37 +26,37 @@ socket.on('student_recv', function (msg) {
     if(msg.hasOwnProperty('active')) {
         if(msg['active']) {
             enableAllButtons();
-        } else {
+        }else {
             disableAllButtons();
         }
     }
 });
 
 function timeOutPace(){
-    document.getElementById("slow").disabled = true;
-    document.getElementById("fast").disabled = true;
+    button_slow.disabled = true;
+    button_fast.disabled = true;
     setTimeout(function() {
-        document.getElementById("slow").disabled = false;
-        document.getElementById("fast").disabled = false;
+        button_slow.disabled = false;
+        button_fast.disabled = false;
     }, timeOut);
 }
-document.getElementById("slow").addEventListener("click", timeOutPace);
-document.getElementById("fast").addEventListener("click", timeOutPace);
+button_slow.addEventListener("click", timeOutPace);
+button_fast.addEventListener("click", timeOutPace);
 
 function timeOutDifficulty(){
-    document.getElementById("easy").disabled = true;
-    document.getElementById("hard").disabled = true;
+    button_easy.disabled = true;
+    button_hard.disabled = true;
     setTimeout(function() {
-        document.getElementById("easy").disabled = false;
-        document.getElementById("hard").disabled = false;
+        button_easy.disabled = false;
+        button_hard.disabled = false;
     }, timeOut);
 }
-document.getElementById("easy").addEventListener("click", timeOutDifficulty);
-document.getElementById("hard").addEventListener("click", timeOutDifficulty);
+button_easy.addEventListener("click", timeOutDifficulty);
+button_hard.addEventListener("click", timeOutDifficulty);
 
 $('form').submit(function(){
-    var m_field = $('#m');
-    var data = {'action': m_field.val()};
+    let m_field = $('#m');
+    let data = {'action': m_field.val()};
     console.log('Submitted: ' + data);
     socket.emit('student_send', data);
     m_field.val('');
@@ -65,13 +65,6 @@ $('form').submit(function(){
 
 $('.action_button').click(function (eventObj) {
     console.log(eventObj['currentTarget']['id']);
-    var data = {'action': eventObj['currentTarget']['id'], 'course_id': course_id};
+    let data = {'action': eventObj['currentTarget']['id'], 'course_id': course_id};
     socket.emit('student_send', data)
 });
-
-$('.session_control').click(function (eventObj) {
-    console.log(eventObj['currentTarget']['id']);
-    var data = {'session_control': eventObj['currentTarget']['id'], 'course_id': course_id };
-    socket.emit('lecturer_send', data)
-});
-
