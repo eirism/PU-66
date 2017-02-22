@@ -46,12 +46,12 @@ def handle_student_send(message):
         return
     l_session = get_lecture_session(course_id)
     if l_session.active:
-        action = message['button']
+        action = message['action']
         s_feedback = get_session_feedback(l_session.session_id, action)
         s_feedback.count += 1
         db.session.add(s_feedback)
         db.session.commit()
-        emit('lecturer_recv', {'button': [action, s_feedback.count]}, room=course_id)
+        emit('lecturer_recv', {'action': [action, s_feedback.count]}, room=course_id)
 
 
 @socketio.on('lecturer_send')
@@ -64,7 +64,7 @@ def handle_lecturer_send(message):
     if new_state == 'start' and not l_session.active:
         old_feedbacks = models.SessionFeedback.query.filter_by(session_id=l_session.session_id)
         for feedback in old_feedbacks.all():
-            emit('lecturer_recv', {'button': [feedback.action_name, 0]}, room=course_id)
+            emit('lecturer_recv', {'action': [feedback.action_name, 0]}, room=course_id)
             db.session.delete(feedback)
         db.session.commit()
         l_session.active = True

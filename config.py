@@ -8,8 +8,8 @@ SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
 BUTTON_ACTIONS = [
-    ['action_slow', 'To slow'],
-    ['action_fast', 'To fast'],
-    ['action_easy', 'This is easy'],
-    ['action_hard', 'This is hard']
+    ['slow', 'Slow'],
+    ['fast', 'Fast'],
+    ['easy', 'Easy'],
+    ['hard', 'Hard']
 ]
