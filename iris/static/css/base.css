@@ -12,4 +12,6 @@ body {
     text-decoration: none;
 }
 
+.mdl-cell .mdl-card {
+    width: 100%;
 }
