@@ -1,6 +1,6 @@
- {% extends "base.html" %}
- {% block title %} IRIS {% endblock title %}
- {% block head %}
+{% extends "base.html" %}
+{% block title %} IRIS {% endblock title %}
+{% block head %}
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
@@ -9,84 +9,60 @@
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       button {width: 200px;}
     </style>
- {% endblock head %}
+{% endblock head %}
 
- {% block content %}
-
+{% block content %}
     <!--
      <form action="">
         <input title="Type text to save" type="text" id="m" autocomplete="off">
         <button>Send message</button>
     </form>
     -->
+ <div class="mdl-layout__content">
+     <div class="mdl-grid mdl-typography--text-center">
+         <div class="mdl-layout-spacer"></div>
+         <div class="mdl-cell mdl-cell--2-col">
+             <p>The student may give feedback on the lecture</p>
+             <ul>
+                 {% for action in actions %}
+                     <button id="{{ action[0] }}" class="bigbutton action_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">{{ action[1] }}</button>
+                 {% endfor %}
+             </ul>
+         </div>
+         <div class="mdl-layout-spacer"></div>
+     </div>
+ </div>
 
-     <div class="mdl-layout__content">
-    <div class="mdl-grid mdl-typography--text-center">
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-cell mdl-cell--2-col">
-            <p>The student may give feedback on the lecture</p>
-            <ul>
-         {% for action in actions %}
-             <button id="{{ action[0] }}" class="bigbutton action_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">{{ action[1] }}</button>
-        {% endfor %}
-     </ul>
-        </div>
-        <div class="mdl-layout-spacer"></div>
-    </div>
-</div>
-
-
-
-    <!--
-    <button id="start" class="session_control">Start</button>
-    <button id="stop" class="session_control">Stop</button>
-    -->
-
-
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-
-    <script>
-    function lockoutSubmit(button) {
-    var oldValue = button.value;
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+function lockoutSubmit(button) {
+    let oldValue = button.value;
 
     button.setAttribute('disabled', true);
     button.value = '...processing...';
 
     setTimeout(function(){
         button.value = oldValue;
-        button.removeAttribute('disabled');
-    }, 3000)
+        button.removeAttribute('disabled');}
+    , 3000)
 }
-        var socket = io();
-        socket.emit('join', {'course_id': {{ course_id }}});
+var socket = io();
+socket.emit('join', {'course_id': {{ course_id }}});
 
-        $('form').submit(function(){
-            var m_field = $('#m');
-            var data = {'action': m_field.val()};
-            console.log('Submitted: ' + data);
-            socket.emit('student_send', data);
-            m_field.val('');
-            return false;
-        });
+$('form').submit(function(){
+    var m_field = $('#m');
+    var data = {'action': m_field.val()};
+    console.log('Submitted: ' + data);
+    socket.emit('student_send', data);
+    m_field.val('');
+    return false;
+});
 
-        $('.action_button').click(function (eventObj) {
-            console.log(eventObj['currentTarget']['id']);
-            var data = {'action': eventObj['currentTarget']['id'], 'course_id': {{ course_id}}};
-            socket.emit('student_send', data)
-        });
-
-        $('.session_control').click(function (eventObj) {
-            console.log(eventObj['currentTarget']['id']);
-            var data = {'session_control': eventObj['currentTarget']['id'], 'course_id': {{ course_id }}};
-            socket.emit('lecturer_send', data)
-        });
-
-        socket.on('lecturer_recv', function (msg) {
-            console.log(msg['action']);
-            $('#text_' + msg['action'][0]).html(msg['action'][1]);
-        });
-    </script>
-
-
- {% endblock content %}
+$('.action_button').click(function (eventObj) {
+    console.log(eventObj['currentTarget']['id']);
+    var data = {'action': eventObj['currentTarget']['id'], 'course_id': {{ course_id}}};
+    socket.emit('student_send', data)
+});
+</script>
+{% endblock content %}
