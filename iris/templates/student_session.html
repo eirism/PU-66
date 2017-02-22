@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} IRIS {% endblock title %}
+{% block title %}IRIS - student{% endblock title %}
 
 {% block content %}
     <div class="mdl-card__title mdl-card--expand">
@@ -14,13 +14,14 @@
                     class="action_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">{{ action[1] }}</button>
         {% endfor %}
     </div>
+{% endblock content %}
 
-    <script>
-    let course_id = {{ course_id }}
-    let sessionActive = "{{ active }}"
-    </script>
+{% block scripts %}
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+        let courseID = {{ course_id }};
+        let sessionActive = "{{ active }}";
+    </script>
     <script src="{{ url_for('static', filename="js/student.js") }}"></script>
-
-{% endblock content %}
+{% endblock scripts %}

@@ -10,32 +10,32 @@
     {% endblock head %}
 </head>
 <body>
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-            <a class="mdl-layout__title" href="{{ url_for('index') }}">
-                I.R.I.S. - Intelligent Real-time Information System
-            </a>
-            <div class="mdl-layout-spacer"></div>
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="{{ url_for('session_control', course=1) }}">Holder of places</a>
-            </nav>
-        </div>
-    </header>
-    <main class="mdl-layout__content">
-        <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone mdl-cell--3-offset-desktop mdl-cell--2-offset-tablet">
-                <div class="mdl-card mdl-shadow--2dp">
-                    {% block content %}
-                    {% endblock content %}
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <a class="mdl-layout__title" href="{{ url_for('index') }}">
+                    I.R.I.S. - Intelligent Real-time Information System
+                </a>
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="{{ url_for('session_control', course=1) }}">Holder of places</a>
+                </nav>
+            </div>
+        </header>
+        <main class="mdl-layout__content">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone mdl-cell--3-offset-desktop mdl-cell--2-offset-tablet">
+                    <div class="mdl-card mdl-shadow--2dp">
+                        {% block content %}
+                        {% endblock content %}
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-</div>
+        </main>
+    </div>
 
-{% block scripts %}
-{% endblock scripts %}
-<script src="{{ url_for('static', filename='js/vendor/material.min.js') }}"></script>
+    {% block scripts %}
+    {% endblock scripts %}
+    <script src="{{ url_for('static', filename='js/vendor/material.min.js') }}"></script>
 </body>
 </html>

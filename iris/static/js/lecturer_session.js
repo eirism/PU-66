@@ -20,7 +20,7 @@ button_start.onclick = function () {
     let data = {'session_control': 'start', 'course_id': courseID};
     socket.emit('lecturer_send', data);
 
-    feedbackmsg.innerHTML = "Session started";
+    feedbackmsg.innerHTML = "Session active";
 }
 
 button_stop.onclick = function () {
@@ -31,10 +31,23 @@ button_stop.onclick = function () {
     let data = {'session_control': 'stop', 'course_id': courseID};
     socket.emit('lecturer_send', data);
 
-    feedbackmsg.innerHTML = "Session stopped";
+    feedbackmsg.innerHTML = "Session not active";
 }
 
 socket.on('lecturer_recv', function (msg) {
-    console.log(msg['action']);
-    $('#text_' + msg['action'][0]).attr("data-badge", msg['action'][1]);
+    if(msg.hasOwnProperty('action')) {
+        console.log(msg['action']);
+        $('#text_' + msg['action'][0]).attr("data-badge", msg['action'][1]);
+    }else if(msg.hasOwnProperty('active')) {
+        console.log(msg['active']);
+        if(msg['active']) {
+            button_start.disabled = true;
+            button_stop.disabled = false;
+            feedbackmsg.innerHTML = "Session active";
+        }else {
+            button_start.disabled = false;
+            button_stop.disabled = true;
+            feedbackmsg.innerHTML = "Session not active";
+        }
+    }
 });
