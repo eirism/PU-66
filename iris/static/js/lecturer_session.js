@@ -1,6 +1,3 @@
-/**
- * Created by Mathias on 15.02.17.
- */
 const button_start = document.getElementById("button_start");
 const button_stop = document.getElementById("button_stop");
 const feedbackmsg = document.getElementById("lecturer_message")
