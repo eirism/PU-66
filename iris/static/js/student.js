@@ -5,7 +5,7 @@ const button_hard = document.getElementById("hard");
 const timeOut = 15000;
 
 let socket = io();
-socket.emit('join', {'course_id': course_id });
+socket.emit('join', {'course_id': courseID });
 
 function enableAllButtons() {
         button_slow.disabled = false;
@@ -65,6 +65,6 @@ $('form').submit(function(){
 
 $('.action_button').click(function (eventObj) {
     console.log(eventObj['currentTarget']['id']);
-    let data = {'action': eventObj['currentTarget']['id'], 'course_id': course_id};
+    let data = {'action': eventObj['currentTarget']['id'], 'course_id': courseID};
     socket.emit('student_send', data)
 });

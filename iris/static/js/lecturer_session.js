@@ -1,6 +1,6 @@
 const button_start = document.getElementById("button_start");
 const button_stop = document.getElementById("button_stop");
-const feedbackmsg = document.getElementById("lecturer_message"):
+const feedbackmsg = document.getElementById("lecturer_message");
 let socket = io();
 socket.emit('join', {'course_id': courseID});
 
