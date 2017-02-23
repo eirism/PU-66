@@ -21,7 +21,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script>
         let courseID = {{ course_id }};
-        let sessionActive = "{{ active }}";
+        let sessionActive = {{ active|tojson }};
     </script>
     <script src="{{ url_for('static', filename="js/student.js") }}"></script>
 {% endblock scripts %}
