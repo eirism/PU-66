@@ -1,24 +1,24 @@
-const button_slow = document.getElementById("slow");
-const button_fast = document.getElementById("fast");
-const button_easy = document.getElementById("easy");
-const button_hard = document.getElementById("hard");
+const buttonSlow = document.getElementById("slow");
+const buttonFast = document.getElementById("fast");
+const buttonEasy = document.getElementById("easy");
+const buttonHard = document.getElementById("hard");
 const timeOut = 15000;
 
 let socket = io();
 socket.emit('join', {'course_id': courseID });
 
 function enableAllButtons() {
-        button_slow.disabled = false;
-        button_fast.disabled = false;
-        button_easy.disabled = false;
-        button_hard.disabled = false;
+        buttonSlow.disabled = false;
+        buttonFast.disabled = false;
+        buttonEasy.disabled = false;
+        buttonHard.disabled = false;
 }
 
 function disableAllButtons() {
-        button_slow.disabled = true;
-        button_fast.disabled = true;
-        button_easy.disabled = true;
-        button_hard.disabled = true;
+        buttonSlow.disabled = true;
+        buttonFast.disabled = true;
+        buttonEasy.disabled = true;
+        buttonHard.disabled = true;
 }
 
 socket.on('student_recv', function (msg) {
@@ -33,26 +33,26 @@ socket.on('student_recv', function (msg) {
 });
 
 function timeOutPace(){
-    button_slow.disabled = true;
-    button_fast.disabled = true;
+    buttonSlow.disabled = true;
+    buttonFast.disabled = true;
     setTimeout(function() {
-        button_slow.disabled = false;
-        button_fast.disabled = false;
+        buttonSlow.disabled = false;
+        buttonFast.disabled = false;
     }, timeOut);
 }
-button_slow.addEventListener("click", timeOutPace);
-button_fast.addEventListener("click", timeOutPace);
+buttonSlow.addEventListener("click", timeOutPace);
+buttonFast.addEventListener("click", timeOutPace);
 
 function timeOutDifficulty(){
-    button_easy.disabled = true;
-    button_hard.disabled = true;
+    buttonEasy.disabled = true;
+    buttonHard.disabled = true;
     setTimeout(function() {
-        button_easy.disabled = false;
-        button_hard.disabled = false;
+        buttonEasy.disabled = false;
+        buttonHard.disabled = false;
     }, timeOut);
 }
-button_easy.addEventListener("click", timeOutDifficulty);
-button_hard.addEventListener("click", timeOutDifficulty);
+buttonEasy.addEventListener("click", timeOutDifficulty);
+buttonHard.addEventListener("click", timeOutDifficulty);
 
 $('.action_button').click(function (eventObj) {
     console.log(eventObj['currentTarget']['id']);
