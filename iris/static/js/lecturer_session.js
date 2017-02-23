@@ -1,18 +1,18 @@
-const button_start = document.getElementById("button_start");
-const button_stop = document.getElementById("button_stop");
+const buttonStart = document.getElementById("button_start");
+const buttonStop = document.getElementById("button_stop");
 const feedbackmsg = document.getElementById("lecturer_message");
 let socket = io();
 socket.emit('join', {'course_id': courseID});
 
 function disableStart(){
-    button_start.disabled = true;
-    button_stop.disabled = false;
+    buttonStart.disabled = true;
+    buttonStop.disabled = false;
     feedbackmsg.innerHTML = "Session active";
 }
 
 function disableStop(){
-    button_start.disabled = false;
-    button_stop.disabled = true;
+    buttonStart.disabled = false;
+    buttonStop.disabled = true;
     feedbackmsg.innerHTML = "Session not active";
 }
 
@@ -22,7 +22,7 @@ if(sessionActive){
     disableStop();
 }
 
-button_start.onclick = function () {
+buttonStart.onclick = function () {
     disableStart();
 
     console.log("SESSION START");
@@ -30,7 +30,7 @@ button_start.onclick = function () {
     socket.emit('lecturer_send', data);
 };
 
-button_stop.onclick = function () {
+buttonStop.onclick = function () {
     disableStop();
 
     console.log("SESSION STOP");
