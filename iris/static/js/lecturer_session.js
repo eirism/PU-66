@@ -16,7 +16,7 @@ function disableStop(){
     feedbackmsg.innerHTML = "Session not active";
 }
 
-if(sessionActive == "True"){
+if(sessionActive){
     disableStart();
 }else{
     disableStop();
