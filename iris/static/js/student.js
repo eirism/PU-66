@@ -21,6 +21,12 @@ function disableAllButtons() {
         buttonHard.disabled = true;
 }
 
+if(sessionActive){
+    enableAllButtons();
+}else{
+    disableAllButtons();
+}
+
 socket.on('student_recv', function (msg) {
     console.log(msg['active']);
     if(msg.hasOwnProperty('active')) {
