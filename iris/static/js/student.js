@@ -53,8 +53,10 @@ function timeOutDifficulty(){
     buttonEasy.disabled = true;
     buttonHard.disabled = true;
     setTimeout(function() {
-        buttonEasy.disabled = false;
-        buttonHard.disabled = false;
+        if(sessionActive) {
+            buttonEasy.disabled = false;
+            buttonHard.disabled = false;
+        }
     }, timeOut);
 }
 buttonEasy.addEventListener("click", timeOutDifficulty);
