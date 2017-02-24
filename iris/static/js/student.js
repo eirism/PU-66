@@ -21,9 +21,7 @@ function disableAllButtons() {
         buttonHard.disabled = true;
 }
 
-if(sessionActive){
-    enableAllButtons();
-}else{
+if(!sessionActive) {
     disableAllButtons();
 }
 
@@ -42,8 +40,10 @@ function timeOutPace(){
     buttonSlow.disabled = true;
     buttonFast.disabled = true;
     setTimeout(function() {
-        buttonSlow.disabled = false;
-        buttonFast.disabled = false;
+        if(sessionActive) {
+            buttonSlow.disabled = false;
+            buttonFast.disabled = false;
+        }
     }, timeOut);
 }
 buttonSlow.addEventListener("click", timeOutPace);
