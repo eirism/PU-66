@@ -1,0 +1,22 @@
+.flex-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.splash-card {
+    display: flex;
+    justify-content: center;
+}
+
+.splash-card div {
+    display: flex;
+    justify-content: center;
+}
+
+.splash-card div a {
+    margin: 64px 4px;
+}
