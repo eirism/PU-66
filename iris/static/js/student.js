@@ -3,14 +3,13 @@ const buttonFast = document.getElementById("fast");
 const buttonEasy = document.getElementById("easy");
 const buttonHard = document.getElementById("hard");
 const timeOut = 15000;
-var paceClicked = false;
-var difficultyClicked = false;
-var paceTimeOut;
-var difficultyTimeOut;
-var currentTime;
-var timePace;
-var timeDifficulty;
-
+let paceClicked = false;
+let difficultyClicked = false;
+let paceTimeOut;
+let difficultyTimeOut;
+let currentTime;
+let timePace;
+let timeDifficulty;
 let socket = io();
 socket.emit('join', {'course_id': courseID });
 
@@ -48,13 +47,13 @@ socket.on('student_recv', function (msg) {
 function setTimers () {
   currentTime = new Date();
   if(localStorage.getItem("timePace")) {
-      var timePace = new Date(localStorage.getItem("timePace"));
-      var timeRemainingPace = timeOut - (currentTime.getTime() - timePace.getTime());
-      if(timeRemainingPace>0) {
+      let timePace = new Date(localStorage.getItem("timePace"));
+      let timeRemainingPace = timeOut - (currentTime.getTime() - timePace.getTime());
+      if(timeRemainingPace > 0) {
           buttonSlow.disabled = true;
           buttonFast.disabled = true;
       }
-      var paceTimeOut = setTimeout(function() {
+      let paceTimeOut = setTimeout(function() {
           if(sessionActive) {
                 buttonSlow.disabled = false;
                 buttonFast.disabled = false;
@@ -63,13 +62,13 @@ function setTimers () {
     }, timeRemainingPace);
   }
   if(localStorage.getItem("timeDifficulty")) {
-      var timeDifficulty = new Date(localStorage.getItem("timeDifficulty"));
-      var timeRemainingDifficulty = timeOut- (currentTime.getTime() - timeDifficulty.getTime());
-      if(timeRemainingDifficulty>0) {
+      let timeDifficulty = new Date(localStorage.getItem("timeDifficulty"));
+      let timeRemainingDifficulty = timeOut- (currentTime.getTime() - timeDifficulty.getTime());
+      if(timeRemainingDifficulty > 0) {
           buttonEasy.disabled = true;
           buttonHard.disabled = true;
       }
-      var difficultyTimeOut = setTimeout(function() {
+      let difficultyTimeOut = setTimeout(function() {
           if(sessionActive) {
               buttonEasy.disabled = false;
               buttonHard.disabled = false;
