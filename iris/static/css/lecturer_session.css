@@ -2,9 +2,14 @@
     display: flex;
     justify-content: center;
     border-top: 1px solid rgba(0,0,0,.1);
+    border-bottom: 1px solid rgba(0,0,0,.1);
     padding: 16px;
 }
 
 .counts span:not(:last-child) {
     margin-right: 64px;
+}
+
+canvas {
+    margin: 16px auto;
 }
