@@ -1,6 +1,6 @@
 # Custom
 .DS_store
-
+node_modules/
 
 # Created by https://www.gitignore.io/api/python,intellij,git
 
