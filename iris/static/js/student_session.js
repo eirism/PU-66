@@ -1,7 +1,7 @@
-const buttonSlow = document.getElementById("slow")
-const buttonFast = document.getElementById("fast")
-const buttonEasy = document.getElementById("easy")
-const buttonHard = document.getElementById("hard")
+const buttonSlow = document.getElementById('slow')
+const buttonFast = document.getElementById('fast')
+const buttonEasy = document.getElementById('easy')
+const buttonHard = document.getElementById('hard')
 const timeOut = 15000
 let paceClicked = false
 let difficultyClicked = false
@@ -46,8 +46,8 @@ socket.on('student_recv', function (msg) {
 
 function setTimers () {
   currentTime = new Date()
-  if (localStorage.getItem("timePace")) {
-    let timePace = new Date(localStorage.getItem("timePace"))
+  if (localStorage.getItem('timePace')) {
+    let timePace = new Date(localStorage.getItem('timePace'))
     let timeRemainingPace = timeOut - (currentTime.getTime() - timePace.getTime())
     if (timeRemainingPace > 0) {
       buttonSlow.disabled = true
@@ -61,8 +61,8 @@ function setTimers () {
       }
     }, timeRemainingPace)
   }
-  if (localStorage.getItem("timeDifficulty")) {
-    let timeDifficulty = new Date(localStorage.getItem("timeDifficulty"))
+  if (localStorage.getItem('timeDifficulty')) {
+    let timeDifficulty = new Date(localStorage.getItem('timeDifficulty'))
     let timeRemainingDifficulty = timeOut - (currentTime.getTime() - timeDifficulty.getTime())
     if (timeRemainingDifficulty > 0) {
       buttonEasy.disabled = true
@@ -83,7 +83,7 @@ function timeOutPace () {
   buttonFast.disabled = true
   paceClicked = true
   timePace = new Date()
-  localStorage.setItem("timePace", timePace)
+  localStorage.setItem('timePace', timePace)
   paceTimeOut = setTimeout(function () {
     if (sessionActive) {
       buttonSlow.disabled = false
@@ -92,15 +92,15 @@ function timeOutPace () {
     }
   }, timeOut)
 }
-buttonSlow.addEventListener("click", timeOutPace)
-buttonFast.addEventListener("click", timeOutPace)
+buttonSlow.addEventListener('click', timeOutPace)
+buttonFast.addEventListener('click', timeOutPace)
 
 function timeOutDifficulty () {
   buttonEasy.disabled = true
   buttonHard.disabled = true
   difficultyClicked = true
   timeDifficulty = new Date()
-  localStorage.setItem("timeDifficulty", timeDifficulty)
+  localStorage.setItem('timeDifficulty', timeDifficulty)
   difficultyTimeOut = setTimeout(function () {
     if (sessionActive) {
       buttonEasy.disabled = false
@@ -109,16 +109,16 @@ function timeOutDifficulty () {
     }
   }, timeOut)
 }
-buttonEasy.addEventListener("click", timeOutDifficulty)
-buttonHard.addEventListener("click", timeOutDifficulty)
+buttonEasy.addEventListener('click', timeOutDifficulty)
+buttonHard.addEventListener('click', timeOutDifficulty)
 
 window.onbeforeunload = function () {
   if (paceClicked && (buttonSlow.disabled || buttonFast.disabled)) {
-    localStorage.setItem("timePace", timePace)
+    localStorage.setItem('timePace', timePace)
     clearTimeout(paceTimeOut)
   }
   if (difficultyClicked && (buttonHard.disabled || buttonEasy.disabled)) {
-    localStorage.setItem("timeDifficulty", timeDifficulty)
+    localStorage.setItem('timeDifficulty', timeDifficulty)
     clearTimeout(difficultyTimeOut)
   }
 }
