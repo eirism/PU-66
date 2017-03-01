@@ -23,9 +23,15 @@
         <span id="text_easy" class="mdl-badge" data-badge="{{ counts['easy'] }}">Easy</span>
         <span id="text_hard" class="mdl-badge" data-badge="{{ counts['hard'] }}">Hard</span>
     </div>
-    <canvas id="speed"></canvas>
-    <canvas id="difficulty"></canvas>
 {% endblock content %}
+
+{% block speed %}
+    <canvas id="speed"></canvas>
+{% endblock speed %}
+
+{% block difficulty %}
+    <canvas id="difficulty"></canvas>
+{% endblock difficulty %}
 
 {% block scripts %}
     <script src="{{ url_for('static', filename="js/vendor/Chart.bundle.js") }}"></script>
