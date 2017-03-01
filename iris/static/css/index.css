@@ -1,3 +1,8 @@
+body {
+    background-color: #E3F2FD;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
 .flex-container {
     position: absolute;
     width: 100%;
