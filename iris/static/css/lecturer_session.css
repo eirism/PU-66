@@ -10,7 +10,8 @@
     margin-right: 64px;
 }
 
-#polar {
+canvas {
     margin: 64px auto;
-    height: 100%;
+    width: 50%;
+    height: 50%;
 }

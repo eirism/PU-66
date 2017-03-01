@@ -45,10 +45,14 @@ socket.on('lecturer_recv', function (msg) {
     console.log(msg['action'])
     $('#text_' + msg['action'][0]).attr('data-badge', msg['action'][1])
 
-    // Updating the correct data field on the chart
-    polar.data.datasets[0].data[actions.indexOf(msg['action'][0])] = parseInt($('#text_' + msg['action'][0]).attr('data-badge'))
+    if ($.inArray(msg['action'][0], actions.slice(0, 2)) !== -1) {
+      speed.data.datasets[0].data[actions.indexOf(msg['action'][0])] = parseInt($('#text_' + msg['action'][0]).attr('data-badge'))
+      speed.update()
+    } else {
+      difficulty.data.datasets[0].data[actions.indexOf(msg['action'][0])-2] = parseInt($('#text_' + msg['action'][0]).attr('data-badge'))
+      difficulty.update()
+    }
 
-    polar.update()
   } else if (msg.hasOwnProperty('active')) {
     console.log(msg['active'])
     if (msg['active']) {
@@ -59,39 +63,46 @@ socket.on('lecturer_recv', function (msg) {
   }
 })
 
-let ctx = $('#polar')
+let ctxSpeed = $('#speed')
 
-let polar = new Chart(ctx, {
-  type: 'polarArea',
+let speed = new Chart(ctxSpeed, {
+  type: 'doughnut',
   data: {
     datasets: [{
       data: [
         parseInt($('#text_slow').attr('data-badge')),
-        parseInt($('#text_fast').attr('data-badge')),
-        parseInt($('#text_easy').attr('data-badge')),
-        parseInt($('#text_hard').attr('data-badge'))
+        parseInt($('#text_fast').attr('data-badge'))
       ],
       backgroundColor: [
         'rgba(172, 236, 0, 0.75)',
         'rgba(0, 187, 214, 0.75)',
-        'rgba(186, 101, 201, 0.75)',
-        'rgba(239, 60, 121, 0.75)'
-      ],
-      label: 'My dataset' // for legend
+      ]
     }],
     labels: [
       'Slow',
-      'Fast',
+      'Fast'
+    ]
+  }
+})
+
+let ctxDifficulty = $('#difficulty')
+
+let difficulty = new Chart(ctxDifficulty, {
+  type: 'doughnut',
+  data: {
+    datasets: [{
+      data: [
+        parseInt($('#text_easy').attr('data-badge')),
+        parseInt($('#text_hard').attr('data-badge'))
+      ],
+      backgroundColor: [
+        'rgba(186, 101, 201, 0.75)',
+        'rgba(239, 60, 121, 0.75)'
+      ]
+    }],
+    labels: [
       'Easy',
       'Hard'
     ]
-  },
-  options: {
-    elements: {
-      arc: {
-        borderColor: 'rgba(0, 0, 0, 0.1)'
-      }
-    },
-    startAngle: -0.25 * Math.PI
   }
 })
