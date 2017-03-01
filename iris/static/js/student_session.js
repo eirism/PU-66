@@ -53,7 +53,7 @@ function setTimers () {
       buttonSlow.disabled = true
       buttonFast.disabled = true
     }
-    let paceTimeOut = setTimeout(function () {
+    paceTimeOut = setTimeout(function () {
       if (sessionActive) {
         buttonSlow.disabled = false
         buttonFast.disabled = false
@@ -68,7 +68,7 @@ function setTimers () {
       buttonEasy.disabled = true
       buttonHard.disabled = true
     }
-    let difficultyTimeOut = setTimeout(function () {
+    difficultyTimeOut = setTimeout(function () {
       if (sessionActive) {
         buttonEasy.disabled = false
         buttonHard.disabled = false
