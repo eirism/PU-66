@@ -1,4 +1,5 @@
 from iris import db
+from datetime import datetime
 
 
 class LectureSession(db.Model):
@@ -30,3 +31,24 @@ class SessionFeedback(db.Model):
         return '<SFeedback for {} - {}: {}'.format(self.session_id,
                                                    self.action_name,
                                                    self.count)
+
+
+class Questions(db.Model):
+    __tablename__ = 'questions'
+    question_id = db.Column(db.Integer, primary_key=True)
+    session_id = db.Column(db.Integer,
+                           db.ForeignKey('lecturesession.session_id'))
+    question = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime)
+    answered = db.Column(db.Boolean, default=False)
+    flagged = db.Column(db.Boolean, default=False)
+
+    def __init__(self, session_id, question):
+        self.session_id = session_id
+        self.question = question
+        self.timestamp = datetime.utcnow()
+
+    def __repr__(self):
+        return '<Question {} for session {}: {} >'.format(self.question_id,
+                                                          self.session_id,
+                                                          self.question)
