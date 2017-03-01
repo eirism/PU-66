@@ -23,9 +23,11 @@
         <span id="text_easy" class="mdl-badge" data-badge="{{ counts['easy'] }}">Easy</span>
         <span id="text_hard" class="mdl-badge" data-badge="{{ counts['hard'] }}">Hard</span>
     </div>
+    <canvas id="polar"></canvas>
 {% endblock content %}
 
 {% block scripts %}
+    <script src="{{ url_for('static', filename="js/vendor/Chart.bundle.js") }}"></script>
     <script src="{{ url_for('static', filename="js/vendor/socket.io-1.4.5.js") }}"></script>
     <script src="{{ url_for('static', filename="js/vendor/jquery-3.1.1.min.js") }}"></script>
     <script>
