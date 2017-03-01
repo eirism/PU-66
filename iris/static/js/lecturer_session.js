@@ -1,19 +1,21 @@
 const buttonStart = document.getElementById('button_start')
 const buttonStop = document.getElementById('button_stop')
-const feedbackmsg = document.getElementById('lecturer_message')
+const cardTitle = document.getElementById('card_title')
 let socket = io()
 socket.emit('join', {'course_id': courseID})
 
 function disableStart () {
   buttonStart.disabled = true
   buttonStop.disabled = false
-  feedbackmsg.innerHTML = 'Session active'
+  cardTitle.innerHTML = 'Session active'
+  $('.mdl-card__title').css('background-color', '#E91E63')
 }
 
 function disableStop () {
   buttonStart.disabled = false
   buttonStop.disabled = true
-  feedbackmsg.innerHTML = 'Session not active'
+  cardTitle.innerHTML = 'Session not active'
+  $('.mdl-card__title').css('background-color', '#2196F3')
 }
 
 if (sessionActive) {
@@ -49,10 +51,9 @@ socket.on('lecturer_recv', function (msg) {
       speed.data.datasets[0].data[actions.indexOf(msg['action'][0])] = parseInt($('#text_' + msg['action'][0]).attr('data-badge'))
       speed.update()
     } else {
-      difficulty.data.datasets[0].data[actions.indexOf(msg['action'][0])-2] = parseInt($('#text_' + msg['action'][0]).attr('data-badge'))
+      difficulty.data.datasets[0].data[actions.indexOf(msg['action'][0]) - 2] = parseInt($('#text_' + msg['action'][0]).attr('data-badge'))
       difficulty.update()
     }
-
   } else if (msg.hasOwnProperty('active')) {
     console.log(msg['active'])
     if (msg['active']) {
