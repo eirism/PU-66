@@ -132,3 +132,16 @@ $('.action_button').click(function (eventObj) {
   let data = {'action': eventObj['currentTarget']['id'], 'course_id': courseID}
   socket.emit('student_send', data)
 })
+
+$('form').submit(function(){
+  var q_field = $('#questionInput');
+  console.log('Message submitted');
+  socket.emit('student_send', {'question': q_field.val(), 'course_id': courseID, 'action': 0});
+  q_field.val('');
+  return false;
+});
+
+socket.on('student_recv', function (msg) {
+  console.log(msg);
+  $('#questions').append('<li class="mdl-list__item-text-body"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>');
+});

@@ -1,3 +1,9 @@
+<style>
+    .question-list-item {
+        width=300px;
+    }
+</style>
+
 {% extends "base.html" %}
 {% block title %}IRIS - student{% endblock title %}
 
@@ -13,6 +19,29 @@
             <button id="{{ action[0] }}"
                     class="action_button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">{{ action[1] }}</button>
         {% endfor %}
+    </div>
+    <div class="mdl-card__actions mdl-card--border feedback">
+        <form action="">
+            <div class="mdl-textfield mdl-js-textfield">
+                <textarea class="mdl-textfield__input" type="text" rows= "3" id="questionInput" ></textarea>
+                <label class="mdl-textfield__label" for="questionInput">Ask a question</label>
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Submit</button>
+        </form>
+    </div>
+    <div class="mdl-card__actions mdl-card--border feedback">
+        <div style="height:auto; overflow:auto;">
+            <ul class="question-list-item mdl-list" id="questions">
+                {% for q in questions %}
+                    <li class="mdl-list__item-text-body">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">person</i>
+                            {{ q.question }}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 {% endblock content %}
 
