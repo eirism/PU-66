@@ -6,13 +6,19 @@ enum-compat==0.0.2
 eventlet==0.20.1
 Flask==0.12
 Flask-DebugToolbar==0.10.1
+Flask-Login==0.3.2
+Flask-Mail==0.9.1
+Flask-Principal==0.4.0
+Flask-Security==1.7.5
 Flask-SocketIO==2.8.2
 Flask-SQLAlchemy==2.1
+Flask-WTF==0.14.2
 greenlet==0.4.12
 itsdangerous==0.24
 Jinja2==2.9.5
 MarkupSafe==0.23
 packaging==16.8
+passlib==1.7.1
 pbr==1.10.0
 psycopg2==2.6.2
 pycodestyle==2.3.1
@@ -25,3 +31,4 @@ sqlalchemy-migrate==0.10.0
 sqlparse==0.2.2
 Tempita==0.5.2
 Werkzeug==0.11.15
+WTForms==2.1
