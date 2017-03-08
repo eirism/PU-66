@@ -9,4 +9,4 @@ socketio = SocketIO(app, async_mode='eventlet')
 db = SQLAlchemy(app)
 toolbar = DebugToolbarExtension(app)
 
-from iris import views, models
+from iris import views, models  # noqa
