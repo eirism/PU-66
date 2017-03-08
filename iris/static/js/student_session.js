@@ -141,9 +141,9 @@ socket.on('student_recv', function (msg) {
     $('#questions').prepend('<li class="mdl-list__item-text-body"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
   }
   if (msg.hasOwnProperty('command')) {
-    if (msg['command'] == "deleteQuestions") {
-          $("ul").empty()
-      }
+    if (msg['command'] === 'deleteQuestions') {
+        $('ul').empty()
+    }
   }
   if (msg.hasOwnProperty('active')) {
     sessionActive = msg['active']

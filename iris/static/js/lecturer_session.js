@@ -63,8 +63,8 @@ socket.on('lecturer_recv', function (msg) {
       disableStop()
     }
   } else if (msg.hasOwnProperty('command')) {
-      if (msg['command'] == "deleteQuestions") {
-        $("ul").empty()
+    if (msg['command'] === 'deleteQuestions') {
+        $('ul').empty()
       }
   }
 })
