@@ -1,6 +1,7 @@
 # Custom
 .DS_store
 node_modules/
+cov_html/
 
 # Created by https://www.gitignore.io/api/python,intellij,git
 

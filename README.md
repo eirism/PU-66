@@ -9,3 +9,6 @@ To run locally you need python3, pip and a database (Postgres is preferred).
 The environment variables SECRET_KEY, PORT and DATABASE_URL needs to be set, on linux it's `export PORT=5000`, etc
 
 Run the server with `python run.py`
+
+## Running tests
+To run the tests and generate html coverage report: `PYTHONPATH=. py.test --cov-report html:cov_html --cov=iris tests`
