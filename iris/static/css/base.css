@@ -21,6 +21,7 @@ body {
 }
 
 .mdl-card__title {
-    background-color: #E91E63;
+    transition: 0.25s;
+    background-color: #2196F3;
     color: #fff;
 }
