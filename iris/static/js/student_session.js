@@ -136,12 +136,12 @@ $('.action_button').click(function (eventObj) {
   socket.emit('student_send', data)
 })
 
-$('form').submit(function(){
-  let q_field = $('#questionInput')
-  if(q_field.val()) {
+$('form').submit(function () {
+  let qField = $('#questionInput')
+  if (qField.val()) {
     console.log('Message submitted')
-    socket.emit('student_send', {'question': q_field.val(), 'course_id': courseID, 'action': 0})
-    q_field.val('')
+    socket.emit('student_send', {'question': qField.val(), 'course_id': courseID})
+    qField.val('')
   }
   return false
 })
@@ -150,7 +150,7 @@ socket.on('student_recv', function (msg) {
   console.log(msg)
   let receivedStatus = msg.hasOwnProperty('active')
   console.log(receivedStatus)
-  if(!receivedStatus) {
+  if (!receivedStatus) {
     $('#questions').prepend('<li class="mdl-list__item-text-body"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
   }
 })

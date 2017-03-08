@@ -26,7 +26,7 @@ def student_feedback(course):
                            course_id=course_id,
                            actions=actions,
                            active=l_session.active,
-                           questions = all_questions)
+                           questions=all_questions)
 
 
 @app.route('/lecturer')
@@ -49,15 +49,15 @@ def session_control(course):
                            counts=counts,
                            actions=actions,
                            active=l_session.active,
-                           questions = all_questions)
+                           questions=all_questions)
 
 
-def handle_question(message, l_session):
+def handle_question(message, l_session, course_id):
     new_question = str(message['question'])
     s_question = models.Questions(l_session.session_id, new_question)
     db.session.add(s_question)
-    emit('student_recv', message, broadcast=True)
-    emit('lecturer_recv', message, broadcast=True)
+    emit('student_recv', message, room=course_id)
+    emit('lecturer_recv', message, room=course_id)
 
 
 def handle_feedback(message, l_session, course_id):
@@ -75,10 +75,11 @@ def handle_student_send(message):
         return
     l_session = get_lecture_session(course_id)
     if l_session.active:
-        if message['action'] != 0:
+        print(message)
+        if 'action' in message:
             handle_feedback(message, l_session, course_id)
-        elif (message['action'] == 0):
-            handle_question(message, l_session)
+        elif 'question' in message:
+            handle_question(message, l_session, course_id)
         db.session.commit()
 
 
