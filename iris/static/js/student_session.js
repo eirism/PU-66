@@ -2,6 +2,7 @@ const buttonSlow = document.getElementById('slow')
 const buttonFast = document.getElementById('fast')
 const buttonEasy = document.getElementById('easy')
 const buttonHard = document.getElementById('hard')
+const questionButton = document.getElementById('questionButton')
 const timeOut = 15000
 let paceClicked = false
 let difficultyClicked = false
@@ -18,6 +19,7 @@ function enableAllButtons () {
   buttonFast.disabled = false
   buttonEasy.disabled = false
   buttonHard.disabled = false
+  questionButton.disabled = false
 }
 
 function disableAllButtons () {
@@ -25,24 +27,12 @@ function disableAllButtons () {
   buttonFast.disabled = true
   buttonEasy.disabled = true
   buttonHard.disabled = true
+  questionButton.disabled = true
 }
 
 if (!sessionActive) {
   disableAllButtons()
 }
-
-socket.on('student_recv', function (msg) {
-  console.log(msg['active'])
-  if (msg.hasOwnProperty('active')) {
-    sessionActive = msg['active']
-    if (sessionActive) {
-      enableAllButtons()
-      setTimers()
-    } else {
-      disableAllButtons()
-    }
-  }
-})
 
 function setTimers () {
   currentTime = new Date()
@@ -131,4 +121,37 @@ $('.action_button').click(function (eventObj) {
   console.log(eventObj['currentTarget']['id'])
   let data = {'action': eventObj['currentTarget']['id'], 'course_id': courseID}
   socket.emit('student_send', data)
+})
+
+$('form').submit(function () {
+  let qField = $('#questionInput')
+  if (qField.val()) {
+    console.log('Message submitted')
+    socket.emit('student_send', {'question': qField.val(), 'course_id': courseID})
+    qField.val('')
+  }
+  return false
+})
+
+socket.on('student_recv', function (msg) {
+  console.log(msg)
+  let receivedStatus = msg.hasOwnProperty('active')
+  console.log(receivedStatus)
+  if (!receivedStatus) {
+    $('#questions').prepend('<li class="mdl-list__item-text-body"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
+  }
+  if (msg.hasOwnProperty('command')) {
+    if (msg['command'] === 'deleteQuestions') {
+      $('ul').empty()
+    }
+  }
+  if (msg.hasOwnProperty('active')) {
+    sessionActive = msg['active']
+    if (sessionActive) {
+      enableAllButtons()
+      setTimers()
+    } else {
+      disableAllButtons()
+    }
+  }
 })

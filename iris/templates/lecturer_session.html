@@ -1,3 +1,9 @@
+<style>
+    .question-list-item {
+        width=300px;
+    }
+</style>
+
 {% extends "base.html" %}
 {% block title %}IRIS - session{% endblock title %}
 
@@ -21,6 +27,20 @@
         <span id="text_fast" class="mdl-badge" data-badge="{{ counts['fast'] }}">Fast</span>
         <span id="text_easy" class="mdl-badge" data-badge="{{ counts['easy'] }}">Easy</span>
         <span id="text_hard" class="mdl-badge" data-badge="{{ counts['hard'] }}">Hard</span>
+    </div>
+    <div class="mdl-card__actions mdl-card--border feedback">
+        <div style="height:auto; overflow:auto;">
+            <ul class="question-list-item mdl-list" id="questions">
+                {% for q in questions %}
+                    <li class="mdl-list__item-text-body">
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons mdl-list__item-icon">person</i>
+                            {{ q.question }}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 {% endblock content %}
 

@@ -46,7 +46,6 @@ socket.on('lecturer_recv', function (msg) {
   if (msg.hasOwnProperty('action')) {
     console.log(msg['action'])
     $('#text_' + msg['action'][0]).attr('data-badge', msg['action'][1])
-
     if ($.inArray(msg['action'][0], actions.slice(0, 2)) !== -1) {
       speed.data.datasets[0].data[actions.indexOf(msg['action'][0])] = parseInt($('#text_' + msg['action'][0]).attr('data-badge'))
       speed.update()
@@ -54,12 +53,18 @@ socket.on('lecturer_recv', function (msg) {
       difficulty.data.datasets[0].data[actions.indexOf(msg['action'][0]) - 2] = parseInt($('#text_' + msg['action'][0]).attr('data-badge'))
       difficulty.update()
     }
+  } else if (msg.hasOwnProperty('question')) {
+    $('#questions').prepend('<li class="mdl-list__item-text-body"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
   } else if (msg.hasOwnProperty('active')) {
     console.log(msg['active'])
     if (msg['active']) {
       disableStart()
     } else {
       disableStop()
+    }
+  } else if (msg.hasOwnProperty('command')) {
+    if (msg['command'] === 'deleteQuestions') {
+      $('ul').empty()
     }
   }
 })
