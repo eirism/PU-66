@@ -21,7 +21,7 @@ def student_feedback(course):
     course_id = get_course_id(course)
     l_session = get_lecture_session(course_id)
     actions = app.config['BUTTON_ACTIONS']
-    all_questions = models.Questions.query.all()
+    all_questions = list(reversed(models.Questions.query.all()))
     return render_template('student_session.html',
                            course_id=course_id,
                            actions=actions,
@@ -40,7 +40,7 @@ def session_control(course):
     l_session = get_lecture_session(course_id)
     counts = dict()
     actions = app.config['BUTTON_ACTIONS']
-    all_questions = models.Questions.query.all()
+    all_questions = list(reversed(models.Questions.query.all()))
     for action in actions:
         s_feedback = get_session_feedback(l_session.session_id, action[0])
         counts[action[0]] = s_feedback.count
@@ -52,15 +52,20 @@ def session_control(course):
                            questions = all_questions)
 
 
-def handle_question(message):
+def handle_question(message, l_session):
     new_question = str(message['question'])
-    message['question']
-    course_id = message['course_id']
-    l_session = get_lecture_session(course_id)
     s_question = models.Questions(l_session.session_id, new_question)
     db.session.add(s_question)
-    db.session.commit()
     emit('student_recv', message, broadcast=True)
+    emit('lecturer_recv', message, broadcast=True)
+
+
+def handle_feedback(message, l_session, course_id):
+    action = message['action']
+    s_feedback = get_session_feedback(l_session.session_id, action)
+    s_feedback.count += 1
+    db.session.add(s_feedback)
+    emit('lecturer_recv', {'action': [action, s_feedback.count]}, room=course_id)
 
 
 @socketio.on('student_send')
@@ -70,17 +75,11 @@ def handle_student_send(message):
         return
     l_session = get_lecture_session(course_id)
     if l_session.active:
-        print(message)
-        print(type(message))
         if message['action'] != 0:
-            action = message['action']
-            s_feedback = get_session_feedback(l_session.session_id, action)
-            s_feedback.count += 1
-            db.session.add(s_feedback)
-            db.session.commit()
-            emit('lecturer_recv', {'action': [action, s_feedback.count]}, room=course_id)
+            handle_feedback(message, l_session, course_id)
         elif (message['action'] == 0):
-            handle_question(message)
+            handle_question(message, l_session)
+        db.session.commit()
 
 
 @socketio.on('lecturer_send')

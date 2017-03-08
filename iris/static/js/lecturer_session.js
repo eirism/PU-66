@@ -42,6 +42,7 @@ socket.on('lecturer_recv', function (msg) {
   if (msg.hasOwnProperty('action')) {
     console.log(msg['action'])
     $('#text_' + msg['action'][0]).attr('data-badge', msg['action'][1])
+    if (msg.hasOwnProperty('question')) $('#questions').prepend('<li class="mdl-list__item-text-body"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
   } else if (msg.hasOwnProperty('active')) {
     console.log(msg['active'])
     if (msg['active']) {
