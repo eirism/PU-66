@@ -7,6 +7,8 @@ from flask_socketio import SocketIOTestClient
 @pytest.fixture(scope="session")
 def app():
     old_dburl = os.environ.get('DATABASE_URL', '')
+    if not os.path.isdir('tmp'):
+        os.mkdir('tmp')
     fd, filename = mkstemp(suffix='.db', prefix='test_', dir='tmp')
     os.environ['DATABASE_URL'] = 'sqlite:///' + filename
     from iris import app as _app
