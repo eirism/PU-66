@@ -92,6 +92,9 @@ def handle_lecturer_send(message):
     new_state = message['session_control']
     if new_state == 'start' and not l_session.active:
         old_feedbacks = models.SessionFeedback.query.filter_by(session_id=l_session.session_id)
+        models.Questions.query.delete()
+        emit('student_recv', {'command': "deleteQuestions"}, room=course_id)
+        emit('lecturer_recv', {'command': "deleteQuestions"}, room=course_id)
         for feedback in old_feedbacks.all():
             emit('lecturer_recv', {'action': [feedback.action_name, 0]}, room=course_id)
             db.session.delete(feedback)
