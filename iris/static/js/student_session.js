@@ -142,7 +142,7 @@ socket.on('student_recv', function (msg) {
   }
   if (msg.hasOwnProperty('command')) {
     if (msg['command'] === 'deleteQuestions') {
-        $('ul').empty()
+      $('ul').empty()
     }
   }
   if (msg.hasOwnProperty('active')) {
