@@ -7,7 +7,7 @@ body {
 }
 
 .mdl-layout__header {
-    margin-bottom: 32px;
+    margin-bottom: 32px; /*Creates a weird effect when you scroll*/
 }
 
 .mdl-layout__title:link, .mdl-layout__title:visited, .mdl-layout__title:hover, .mdl-layout__title:active{
