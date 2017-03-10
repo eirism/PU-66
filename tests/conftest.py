@@ -45,3 +45,12 @@ def session(db):
     transaction.rollback()
     connection.close()
     session.remove()
+
+
+@pytest.fixture(scope="function")
+def logged_in_user(monkeypatch):
+    from iris import user_datastore
+    default_user = user_datastore.create_user(email="defaul@example.com", password="default")
+    monkeypatch.setattr('iris.views.current_user', default_user)
+    monkeypatch.setattr('flask_login.current_user', default_user)
+    return default_user
