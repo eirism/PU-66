@@ -22,7 +22,7 @@ def test_socketio_room_not_joined(client_socketio):
     assert len(client_socketio.get_received()) == 0
 
 
-def test_socketio_send_student(client_socketio):
+def test_socketio_send_student(logged_in_user, client_socketio):
     client_socketio.emit('join', {'course_id': 1})
     client_socketio.emit('lecturer_send', {'course_id': 1, 'session_control': 'start'})
     client_socketio.emit('student_send', {'course_id': 1, 'action': 'slow'})

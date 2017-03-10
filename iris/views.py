@@ -1,5 +1,6 @@
 from flask import render_template, redirect, url_for
 from flask_socketio import emit, join_room, rooms
+from flask_security import login_required, current_user
 from iris import app, models, db, socketio
 
 COURSE_ID = 1
@@ -30,11 +31,13 @@ def student_feedback(course):
 
 
 @app.route('/lecturer')
+@login_required
 def lecturer():
     return redirect(url_for('session_control', course=1))
 
 
 @app.route('/lecturer/<course>/session')
+@login_required
 def session_control(course):
     course_id = get_course_id(course)
     l_session = get_lecture_session(course_id)
@@ -85,6 +88,8 @@ def handle_student_send(message):
 
 @socketio.on('lecturer_send')
 def handle_lecturer_send(message):
+    if not current_user.is_authenticated:
+        return
     course_id = message['course_id']
     if course_id not in rooms():
         return
