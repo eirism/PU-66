@@ -10,3 +10,5 @@ script:
   - "PYTHONPATH=. pytest tests/"
   - "flake8"
   - "eslint iris/static/js/*.js"
+notifications:
+  email: false
