@@ -24,7 +24,8 @@
                     {{ login_user_form.hidden_tag() }}
                     <div class="mdl-textfield mdl-js-textfield">
                         <label class="mdl-textfield__label" for="{{ login_user_form.email.id }}">Email</label>
-                        <input class="mdl-textfield__input" type="text" name="{{ login_user_form.email.name }}" id="{{ login_user_form.email.id }}" />
+                        <input class="mdl-textfield__input" type="text" name="{{ login_user_form.email.name }}"
+                               id="{{ login_user_form.email.id }}"/>
                         {% if login_user_form.email.errors %}
                             {% for error in login_user_form.email.errors %}
                                 <span style="visibility: visible" class="mdl-textfield__error">{{ error }}</span>
@@ -33,7 +34,8 @@
                     </div>
                     <div class="mdl-textfield mdl-js-textfield">
                         <label class="mdl-textfield__label" for="{{ login_user_form.password.id }}">Password</label>
-                        <input class="mdl-textfield__input" type="password" name="{{ login_user_form.password.name }}" id="{{ login_user_form.password.id }}" />
+                        <input class="mdl-textfield__input" type="password" name="{{ login_user_form.password.name }}"
+                               id="{{ login_user_form.password.id }}"/>
                         {% if login_user_form.password.errors %}
                             {% for error in login_user_form.password.errors %}
                                 <span style="visibility: visible" class="mdl-textfield__error">{{ error }}</span>
@@ -41,7 +43,8 @@
                         {% endif %}
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
-                        <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Log in" />
+                        <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                               value="Log in"/>
                         <a class="mdl-navigation__link" href="{{ url_for('security.register') }}">Register user</a>
                     </div>
                 </form>

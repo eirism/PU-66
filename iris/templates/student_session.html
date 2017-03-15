@@ -19,10 +19,12 @@
             <div class="mdl-card__actions mdl-card--border feedback">
                 <form action="">
                     <div class="mdl-textfield mdl-js-textfield">
-                        <textarea class="mdl-textfield__input" type="text" rows= "3" id="questionInput" ></textarea>
+                        <textarea class="mdl-textfield__input" type="text" rows="3" id="questionInput"></textarea>
                         <label class="mdl-textfield__label" for="questionInput">Ask a question</label>
                     </div>
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="questionButton">Submit</button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                            id="questionButton">Submit
+                    </button>
                 </form>
             </div>
             <div class="mdl-card__actions mdl-card--border feedback">
@@ -47,8 +49,8 @@
     <script src="{{ url_for('static', filename="js/vendor/socket.io-1.4.5.js") }}"></script>
     <script src="{{ url_for('static', filename="js/vendor/jquery-3.1.1.min.js") }}"></script>
     <script>
-        let courseID = {{ course_id }};
-        let sessionActive = {{ active|tojson }};
+      let courseID = {{ course_id }};
+      let sessionActive = {{ active|tojson }};
     </script>
     <script src="{{ url_for('static', filename="js/student_session.js") }}"></script>
 {% endblock scripts %}

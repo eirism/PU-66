@@ -6,7 +6,7 @@ body {
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
-.mdl-layout__title:link, .mdl-layout__title:visited, .mdl-layout__title:hover, .mdl-layout__title:active{
+.mdl-layout__title:link, .mdl-layout__title:visited, .mdl-layout__title:hover, .mdl-layout__title:active {
     color: white;
     text-decoration: none;
 }

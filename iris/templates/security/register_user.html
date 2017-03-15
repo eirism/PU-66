@@ -24,7 +24,8 @@
                     {{ register_user_form.hidden_tag() }}
                     <div class="mdl-textfield mdl-js-textfield">
                         <label class="mdl-textfield__label" for="{{ register_user_form.email.id }}">Email</label>
-                        <input class="mdl-textfield__input" type="text" name="{{ register_user_form.email.name }}" id="{{ register_user_form.email.id }}" />
+                        <input class="mdl-textfield__input" type="text" name="{{ register_user_form.email.name }}"
+                               id="{{ register_user_form.email.id }}"/>
                         {% if register_user_form.email.errors %}
                             {% for error in register_user_form.email.errors %}
                                 <span style="visibility: visible" class="mdl-textfield__error">{{ error }}</span>
@@ -33,7 +34,8 @@
                     </div>
                     <div class="mdl-textfield mdl-js-textfield">
                         <label class="mdl-textfield__label" for="{{ register_user_form.password.id }}">Password</label>
-                        <input class="mdl-textfield__input" type="password" name="{{ register_user_form.password.name }}" id="{{ register_user_form.password.id }}" />
+                        <input class="mdl-textfield__input" type="password"
+                               name="{{ register_user_form.password.name }}" id="{{ register_user_form.password.id }}"/>
                         {% if register_user_form.password.errors %}
                             {% for error in register_user_form.password.errors %}
                                 <span style="visibility: visible" class="mdl-textfield__error">{{ error }}</span>
@@ -41,8 +43,11 @@
                         {% endif %}
                     </div>
                     <div class="mdl-textfield mdl-js-textfield">
-                        <label class="mdl-textfield__label" for="{{ register_user_form.password_confirm.id }}">Confirm password</label>
-                        <input class="mdl-textfield__input" type="password" name="{{ register_user_form.password_confirm.name }}" id="{{ register_user_form.password_confirm.id }}" />
+                        <label class="mdl-textfield__label" for="{{ register_user_form.password_confirm.id }}">Confirm
+                            password</label>
+                        <input class="mdl-textfield__input" type="password"
+                               name="{{ register_user_form.password_confirm.name }}"
+                               id="{{ register_user_form.password_confirm.id }}"/>
                         {% if register_user_form.password_confirm.errors %}
                             {% for error in register_user_form.password_confirm.errors %}
                                 <span style="visibility: visible" class="mdl-textfield__error">{{ error }}</span>
@@ -50,7 +55,8 @@
                         {% endif %}
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
-                        <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Register" />
+                        <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                               value="Register"/>
                     </div>
                 </form>
             </div>
