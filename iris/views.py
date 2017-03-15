@@ -33,7 +33,7 @@ def student_feedback(course):
 @app.route('/lecturer')
 @login_required
 def lecturer():
-    return redirect(url_for('session_control', course=1))
+    return render_template('lecturer.html')
 
 
 @app.route('/lecturer/<course>/session')
