@@ -1,6 +1,8 @@
-from iris import db
-from flask_security import RoleMixin, UserMixin
 from datetime import datetime
+
+from flask_security import RoleMixin, UserMixin
+
+from iris import db
 
 
 class LectureSession(db.Model):

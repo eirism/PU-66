@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for
-from flask_socketio import emit, join_room, rooms
 from flask_security import login_required, current_user
+from flask_socketio import emit, join_room, rooms
+
 from iris import app, models, db, socketio
 
 COURSE_ID = 1
@@ -124,7 +125,7 @@ def get_course_id(course_name):
 
 
 def get_lecture_session(course_id):
-    return get_model_or_create(models.LectureSession, (course_id, ))
+    return get_model_or_create(models.LectureSession, (course_id,))
 
 
 def get_session_feedback(session_id, action_name):
