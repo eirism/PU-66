@@ -1,0 +1,27 @@
+{
+  "name": "iris",
+  "version": "1.0.0",
+  "description": "To run locally you need python3, pip and a database (Postgres is preferred).",
+  "main": "index.js",
+  "devDependencies": {
+    "eslint": "^3.16.1",
+    "eslint-config-standard": "^7.0.0",
+    "eslint-config-standard-jsx": "^3.3.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^6.10.0",
+    "eslint-plugin-standard": "^2.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eirism/PU-66.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eirism/PU-66/issues"
+  },
+  "homepage": "https://github.com/eirism/PU-66#readme"
+}

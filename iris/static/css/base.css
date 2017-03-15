@@ -1,4 +1,4 @@
-@import url(index.css);
+@import url(student_session.css);
 @import url(lecturer_session.css);
 
 body {
@@ -7,7 +7,7 @@ body {
 }
 
 .mdl-layout__header {
-    margin-bottom: 32px;
+    margin-bottom: 32px; /*Creates a weird effect when you scroll*/
 }
 
 .mdl-layout__title:link, .mdl-layout__title:visited, .mdl-layout__title:hover, .mdl-layout__title:active{
@@ -21,17 +21,7 @@ body {
 }
 
 .mdl-card__title {
-    background-color: #E91E63;
+    transition: 0.25s;
+    background-color: #2196F3;
     color: #fff;
-}
-
-.feedback {
-    display: flex;
-    justify-content: center;
-    flex-flow: row wrap;
-}
-
-.feedback button {
-    margin: 4px;
-    width: calc(50% - 8px);
 }
