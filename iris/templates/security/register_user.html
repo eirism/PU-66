@@ -24,7 +24,7 @@
                     {{ register_user_form.hidden_tag() }}
                     <div class="mdl-textfield mdl-js-textfield">
                         <label class="mdl-textfield__label" for="{{ register_user_form.email.id }}">Email</label>
-                        <input class="mdl-textfield__input" type="text" name="{{ register_user_form.email.name }}"
+                        <input class="mdl-textfield__input" type="email" name="{{ register_user_form.email.name }}"
                                id="{{ register_user_form.email.id }}"/>
                         {% if register_user_form.email.errors %}
                             {% for error in register_user_form.email.errors %}
