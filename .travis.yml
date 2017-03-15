@@ -1,0 +1,14 @@
+language: python
+python:
+  - "3.6"
+before_install:
+  - "nvm install node 6"
+install:
+  - "pip install -r requirements.txt"
+  - "npm install"
+script:
+  - "PYTHONPATH=. pytest tests/"
+  - "flake8"
+  - "eslint iris/static/js/*.js"
+notifications:
+  email: false

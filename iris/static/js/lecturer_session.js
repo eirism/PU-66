@@ -81,7 +81,7 @@ let speed = new Chart(ctxSpeed, {
       ],
       backgroundColor: [
         'rgba(172, 236, 0, 0.75)',
-        'rgba(0, 187, 214, 0.75)',
+        'rgba(0, 187, 214, 0.75)'
       ]
     }],
     labels: [
