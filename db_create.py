@@ -15,8 +15,7 @@ def create_db():
         api.create(SQLALCHEMY_MIGRATE_REPO, 'database repository')
         api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
     else:
-        api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO,
-                            api.version(SQLALCHEMY_MIGRATE_REPO))  # noqa
+        api.version_control(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO, api.version(SQLALCHEMY_MIGRATE_REPO))  # noqa
 
 
 if __name__ == '__main__':
