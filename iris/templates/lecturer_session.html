@@ -2,57 +2,66 @@
 {% block title %}IRIS - session{% endblock title %}
 
 {% block content %}
-    <div class="mdl-card__title mdl-card--expand">
-        <h2 id="card_title" class="mdl-card__title-text">Lecture Controls</h2>
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--4-col-phone mdl-cell--3-offset mdl-cell--2-offset-tablet">
+        <div class="mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title mdl-card--expand">
+                <h2 id="card_title" class="mdl-card__title-text">Lecture Controls</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                You may start and/or stop a feedback session using the buttons below!
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <button id="button_start" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                    Start
+                </button>
+                <button id="button_stop" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                    Stop
+                </button>
+            </div>
+            <div class="counts">
+                <span id="text_slow" class="mdl-badge" data-badge="{{ counts['slow'] }}">Slow</span>
+                <span id="text_fast" class="mdl-badge" data-badge="{{ counts['fast'] }}">Fast</span>
+                <span id="text_easy" class="mdl-badge" data-badge="{{ counts['easy'] }}">Easy</span>
+                <span id="text_hard" class="mdl-badge" data-badge="{{ counts['hard'] }}">Hard</span>
+            </div>
+            <div class="mdl-card__actions mdl-card--border feedback">
+                <div style="height:auto; overflow:auto;">
+                    <ul class="question-list-item mdl-list" id="questions">
+                        {% for q in questions %}
+                            <li class="mdl-list__item-text-body">
+                                <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-icon">person</i>
+                                    {{ q.question }}
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mdl-card__supporting-text">
-        You may start and/or stop a feedback session using the buttons below!
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-cell--3-offset mdl-cell--1-offset-tablet">
+        <div class="mdl-card mdl-shadow--2dp">
+            <canvas id="speed"></canvas>
+        </div>
     </div>
-    <div class="mdl-card__actions mdl-card--border">
-        <button id="button_start" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            Start
-        </button>
-        <button id="button_stop" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            Stop
-        </button>
-    </div>
-    <div class="counts">
-        <span id="text_slow" class="mdl-badge" data-badge="{{ counts['slow'] }}">Slow</span>
-        <span id="text_fast" class="mdl-badge" data-badge="{{ counts['fast'] }}">Fast</span>
-        <span id="text_easy" class="mdl-badge" data-badge="{{ counts['easy'] }}">Easy</span>
-        <span id="text_hard" class="mdl-badge" data-badge="{{ counts['hard'] }}">Hard</span>
-    </div>
-    <div class="mdl-card__actions mdl-card--border feedback">
-        <div style="height:auto; overflow:auto;">
-            <ul class="question-list-item mdl-list" id="questions">
-                {% for q in questions %}
-                    <li class="mdl-list__item-text-body">
-                        <span class="mdl-list__item-primary-content">
-                            <i class="material-icons mdl-list__item-icon">person</i>
-                            {{ q.question }}
-                        </span>
-                    </li>
-                {% endfor %}
-            </ul>
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--3-col-tablet mdl-cell--2-col-phone">
+        <div class="mdl-card mdl-shadow--2dp">
+            <canvas id="difficulty"></canvas>
         </div>
     </div>
 {% endblock content %}
 
-{% block speed %}
-    <canvas id="speed"></canvas>
-{% endblock speed %}
 
-{% block difficulty %}
-    <canvas id="difficulty"></canvas>
-{% endblock difficulty %}
+
 
 {% block scripts %}
     <script src="{{ url_for('static', filename="js/vendor/Chart.bundle.min.js") }}"></script>
     <script src="{{ url_for('static', filename="js/vendor/socket.io-1.4.5.js") }}"></script>
     <script src="{{ url_for('static', filename="js/vendor/jquery-3.1.1.min.js") }}"></script>
     <script>
-        let courseID = {{ course_id }};
-        let sessionActive = {{ active|tojson }};
+      let courseID = {{ course_id }};
+      let sessionActive = {{ active|tojson }};
     </script>
     <script src="{{ url_for('static', filename='js/lecturer_session.js') }}"></script>
 {% endblock scripts %}
