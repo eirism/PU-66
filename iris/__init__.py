@@ -12,5 +12,5 @@ toolbar = DebugToolbarExtension(app)
 
 from iris import views, models  # noqa
 
-user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Role)
+user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Course)
 security = Security(app, user_datastore)
