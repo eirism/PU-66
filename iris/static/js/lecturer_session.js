@@ -54,7 +54,7 @@ socket.on('lecturer_recv', function (msg) {
       difficulty.update()
     }
   } else if (msg.hasOwnProperty('question')) {
-    $('#questions').prepend('<li class="mdl-list__item-text-body"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
+    $('#questions').prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
   } else if (msg.hasOwnProperty('active')) {
     console.log(msg['active'])
     if (msg['active']) {
