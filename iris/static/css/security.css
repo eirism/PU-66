@@ -1,0 +1,13 @@
+.login-form {
+    padding: 8px;
+}
+
+.login-form .mdl-textfield{
+    display: block;
+    width: 100%;
+}
+
+hr {
+    margin: 16px -16px;
+    border-top-color: rgba(0, 0, 0, 0.1);
+}
