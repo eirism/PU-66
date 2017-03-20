@@ -1,21 +1,16 @@
 const buttonStart = document.getElementById('button_start')
 const buttonStop = document.getElementById('button_stop')
-const cardTitle = document.getElementById('card_title')
 let socket = io()
 socket.emit('join', {'course_id': courseID})
 
 function disableStart () {
   buttonStart.disabled = true
   buttonStop.disabled = false
-  cardTitle.innerHTML = 'Session active'
-  $('.mdl-card__title').css('background-color', '#E91E63')
 }
 
 function disableStop () {
   buttonStart.disabled = false
   buttonStop.disabled = true
-  cardTitle.innerHTML = 'Session not active'
-  $('.mdl-card__title').css('background-color', '#2196F3')
 }
 
 if (sessionActive) {
