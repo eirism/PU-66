@@ -88,6 +88,9 @@ let speed = new Chart(ctxSpeed, {
       'Slow',
       'Fast'
     ]
+  },
+  options: {
+    responsive: false
   }
 })
 
@@ -110,5 +113,8 @@ let difficulty = new Chart(ctxDifficulty, {
       'Easy',
       'Hard'
     ]
+  },
+  options: {
+    responsive: false
   }
 })
