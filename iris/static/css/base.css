@@ -13,6 +13,7 @@ body {
 
 main {
     padding: 32px 0;
+    min-width: 1024px;
 }
 
 .mdl-cell .mdl-card {
@@ -20,8 +21,13 @@ main {
     min-height: inherit;
 }
 
+.mdl-card {
+    margin-bottom: 16px;
+}
+
 .mdl-card__title {
     transition: 0.25s;
     background-color: #2196F3;
     color: #fff;
+    height: 64px;
 }
