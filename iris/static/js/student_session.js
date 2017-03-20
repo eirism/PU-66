@@ -138,7 +138,7 @@ socket.on('student_recv', function (msg) {
   let receivedStatus = msg.hasOwnProperty('active')
   console.log(receivedStatus)
   if (!receivedStatus) {
-    $('#questions').prepend('<li class="mdl-list__item-text-body"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
+    $('#questions').prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
   }
   if (msg.hasOwnProperty('command')) {
     if (msg['command'] === 'deleteQuestions') {
