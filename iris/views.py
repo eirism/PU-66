@@ -8,6 +8,7 @@ from iris import app, models, db, socketio
 
 COURSE_ID = 1
 
+
 @app.route('/')
 @app.route('/index')
 def index():
