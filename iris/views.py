@@ -54,7 +54,7 @@ def lecturer():
     join existing ones and start a feedback session.
 
     """
-    return redirect(url_for('session_control', course=1))
+    return render_template('lecturer.html', courses=current_user.roles)
 
 
 @app.route('/lecturer/<course>/session')
