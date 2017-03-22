@@ -1,3 +1,5 @@
+"""Fixtures for pytest."""
+
 import pytest
 import os
 from tempfile import mkstemp
@@ -6,6 +8,11 @@ from flask_socketio import SocketIOTestClient
 
 @pytest.fixture(scope="session")
 def app():
+    """
+    Set up the app.
+
+    Creates a temporary DB.
+    """
     old_dburl = os.environ.get('DATABASE_URL', '')
     if not os.path.isdir('tmp'):
         os.mkdir('tmp')
@@ -24,18 +31,25 @@ def app():
 
 @pytest.fixture(scope="function")
 def client_socketio(app):
+    """A test client for socketIO."""
     from iris import socketio
     return SocketIOTestClient(app, socketio)
 
 
 @pytest.fixture(scope="session")
 def db(app):
+    """The DB object."""
     from iris import db
     return db
 
 
 @pytest.fixture(scope="function")
 def session(db):
+    """
+    Create a session inside a transaction.
+
+    Will roll back the changes on teardown.
+    """
     connection = db.engine.connect()
     transaction = connection.begin()
     options = dict(bind=connection, binds={})
@@ -49,6 +63,7 @@ def session(db):
 
 @pytest.fixture(scope="function")
 def logged_in_user(monkeypatch):
+    """Create  a default user, and sets current_user to it."""
     from iris import user_datastore
     default_user = user_datastore.create_user(email="defaul@example.com", password="default")
     monkeypatch.setattr('iris.views.current_user', default_user)
