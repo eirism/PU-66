@@ -1,3 +1,4 @@
+"""Set up the app."""
 from flask import Flask
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_security import SQLAlchemyUserDatastore, Security
