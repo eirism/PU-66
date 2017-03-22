@@ -10,7 +10,13 @@
             <table id="table_courses" class="mdl-data-table mdl-js-data-table mdl-card__supporting-text">
                 <tbody>
                 {% for course in courses %}
-                    <tr><td class="table_row mdl-data-table__cell--non-numeric"><a class="course_links" href="{{ url_for('session_control', course=course.code) }}">{{ course.code }} - {{ course.name }}</a></td></tr>
+                    <tr>
+                        <td class="table_row mdl-data-table__cell--non-numeric">
+                            <a class="course_links" href="{{ url_for('session_control', course=course.code) }}">
+                                {{ course.code }} - {{ course.name }}
+                            </a>
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
@@ -28,7 +34,8 @@
                         <input class="mdl-textfield__input" type="text" name="course" id="course"/>
                         <label class="mdl-textfield__label" for="course">Course code</label>
                     </div>
-                    <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Add course"/>
+                    <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                           value="Add course"/>
                 </form>
             </div>
         </div>
@@ -42,7 +49,8 @@
                         <input class="mdl-textfield__input" type="text" name="course" id="course"/>
                         <label class="mdl-textfield__label" for="course">Course code</label>
                     </div>
-                    <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Assign"/>
+                    <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                           value="Assign"/>
                 </form>
             </div>
         </div>
