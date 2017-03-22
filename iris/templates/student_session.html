@@ -38,7 +38,9 @@
         </div>
     </div>
     <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-        {% include 'question_log.html' %}
+        {% with msg = 'Here are the questions already asked by you and your peers!' %}
+            {% include 'question_log.html' %}
+        {% endwith %}
     </div>
 {% endblock content %}
 

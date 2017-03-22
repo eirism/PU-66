@@ -11,10 +11,12 @@
                 You may start and/or stop a feedback session using the buttons below!
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <button id="button_start" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary">
+                <button id="button_start"
+                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary">
                     Start
                 </button>
-                <button id="button_stop" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                <button id="button_stop"
+                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                     Stop
                 </button>
             </div>
@@ -33,7 +35,9 @@
         </div>
     </div>
     <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-        {% include 'question_log.html' %}
+        {% with msg = 'Here are the questions asked by your students!' %}
+            {% include 'question_log.html' %}
+        {% endwith %}
     </div>
 {% endblock content %}
 
