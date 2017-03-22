@@ -28,7 +28,3 @@ main {
 .mdl-card {
     margin-bottom: 16px;
 }
-
-.mdl-card__title {
-    height: 64px;
-}
