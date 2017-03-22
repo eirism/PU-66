@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/material.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -13,9 +14,7 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
-            <a class="mdl-layout__title" href="{{ url_for('index') }}">
-                I.R.I.S. - Intelligent Real-time Information System
-            </a>
+            <a class="mdl-layout__title" href="{{ url_for('index') }}">IRIS</a>
             <div class="mdl-layout-spacer"></div>
             <nav class="mdl-navigation">
                 {% if current_user.is_authenticated %}
