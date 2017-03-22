@@ -5,14 +5,6 @@ from flask_socketio import emit, join_room, rooms
 from iris import app, models, db, socketio
 
 COURSE_ID = 1
-@app.before_first_request
-def test():
-    from iris import user_datastore
-    course = user_datastore.create_role(code="TDT4140", name="Programvareutvikling")
-    user = models.User.query.filter_by(email='admin@mail.com').first()
-    user_datastore.add_role_to_user(user, course)
-    db.session.commit()
-
 
 @app.route('/')
 @app.route('/index')
