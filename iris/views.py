@@ -72,7 +72,7 @@ def handle_question(message, l_session, course_id):
     else:
         print("123")
         print(questions)
-        similar_questions = similarity.similarity(questions, new_question, 0.65)
+        similar_questions = similarity.similarity(questions, new_question, 0.85)
         print("similar questions found: ", similar_questions)
     if similar_questions:
         # Get group
@@ -84,7 +84,6 @@ def handle_question(message, l_session, course_id):
         # print(group)
     else:
         group = max_group+1
-
     s_question = models.Questions(l_session.session_id, new_question, group)
     db.session.add(s_question)
     emit('student_recv', message, room=course_id)
