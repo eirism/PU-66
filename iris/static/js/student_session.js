@@ -155,3 +155,11 @@ socket.on('student_recv', function (msg) {
     }
   }
 })
+
+// Disable questionInput newline on enter, unless shift+enter is used
+$('textarea').keydown(function (e) {
+  if (e.keyCode === 13 && !e.shiftKey) {
+    e.preventDefault()
+    questionButton.click()
+  }
+})
