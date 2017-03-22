@@ -38,20 +38,9 @@ def similarity(inputTexts, inputText, threshold):
     sims = sorted(enumerate(sims), key=lambda item: -item[1])
     print(sims)
 
-    # Create a list of questions with higher cosine similiarty than threshold
+    # Create a list of questions with higher cosine similarity than threshold
     similiarQuestions = []
     for sim in sims:
         if sim[1] > threshold:
             similiarQuestions.append(inputTexts[sim[0]])
     return similiarQuestions
-
-
-documents = ["This is not a test question related to the testing",
-             "Python is great question",
-             "A python student asked a super question this great evening",
-             "Great python lecture"]
-
-compare = "This is test question"
-
-a = similarity(documents, compare, 0.8)
-print(a)

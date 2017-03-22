@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for
 from flask_security import login_required, current_user
 from flask_socketio import emit, join_room, rooms
 
-from iris import app, models, db, socketio
+from iris import app, models, db, socketio, similarity
 
 COURSE_ID = 1
 
@@ -58,7 +58,30 @@ def session_control(course):
 
 def handle_question(message, l_session, course_id):
     new_question = str(message['question'])
-    s_question = models.Questions(l_session.session_id, new_question)
+    all_questions = models.Questions.query.all()
+    questions = list()
+    max_group = -1
+    for q in all_questions:
+        questions.append(q.question)
+        if q.group > max_group:
+            max_group = q.group
+    print("Liste")
+    print(questions)
+    similiar_questions = similarity.similarity(questions, new_question, 0.9)
+    print("test")
+    print("Sims: ", similiar_questions)
+    if similiar_questions:
+        # Get group
+        for q in all_questions:
+            if similiar_questions[0] == q.question:
+                # print(q.question)
+                # print("grp =", q.group)
+                group = q.group
+        # print(group)
+    else:
+        group = max_group+1
+
+    s_question = models.Questions(l_session.session_id, new_question, group)
     db.session.add(s_question)
     emit('student_recv', message, room=course_id)
     emit('lecturer_recv', message, room=course_id)
