@@ -2,19 +2,21 @@
 {% block title %}IRIS - session{% endblock title %}
 
 {% block content %}
-    <div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--4-col-phone mdl-cell--3-offset mdl-cell--2-offset-tablet">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-cell--1-offset mdl-cell--1-offset-tablet">
         <div class="mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-card--expand">
+            <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
                 <h2 id="card_title" class="mdl-card__title-text">Lecture Controls</h2>
             </div>
             <div class="mdl-card__supporting-text">
                 You may start and/or stop a feedback session using the buttons below!
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <button id="button_start" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                <button id="button_start"
+                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary">
                     Start
                 </button>
-                <button id="button_stop" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                <button id="button_stop"
+                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                     Stop
                 </button>
             </div>
@@ -24,31 +26,18 @@
                 <span id="text_easy" class="mdl-badge" data-badge="{{ counts['easy'] }}">Easy</span>
                 <span id="text_hard" class="mdl-badge" data-badge="{{ counts['hard'] }}">Hard</span>
             </div>
-            <div class="mdl-card__actions mdl-card--border feedback">
-                <div style="height:auto; overflow:auto;">
-                    <ul class="question-list-item mdl-list" id="questions">
-                        {% for q in questions %}
-                            <li class="mdl-list__item-text-body">
-                                <span class="mdl-list__item-primary-content">
-                                    <i class="material-icons mdl-list__item-icon">person</i>
-                                    {{ q.question }}
-                                </span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
         </div>
-    </div>
-    <div class="mdl-cell mdl-cell--3-col mdl-cell--3-col-tablet mdl-cell--2-col-phone mdl-cell--3-offset mdl-cell--1-offset-tablet">
-        <div class="mdl-card mdl-shadow--2dp">
+        <div class="mdl-card mdl-shadow--2dp chart">
             <canvas id="speed"></canvas>
         </div>
-    </div>
-    <div class="mdl-cell mdl-cell--3-col mdl-cell--3-col-tablet mdl-cell--2-col-phone">
-        <div class="mdl-card mdl-shadow--2dp">
+        <div class="mdl-card mdl-shadow--2dp chart">
             <canvas id="difficulty"></canvas>
         </div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+        {% with msg = 'Here are the questions asked by your students!' %}
+            {% include 'question_log.html' %}
+        {% endwith %}
     </div>
 {% endblock content %}
 

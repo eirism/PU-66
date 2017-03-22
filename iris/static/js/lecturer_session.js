@@ -1,21 +1,16 @@
 const buttonStart = document.getElementById('button_start')
 const buttonStop = document.getElementById('button_stop')
-const cardTitle = document.getElementById('card_title')
 let socket = io()
 socket.emit('join', {'course_id': courseID})
 
 function disableStart () {
   buttonStart.disabled = true
   buttonStop.disabled = false
-  cardTitle.innerHTML = 'Session active'
-  $('.mdl-card__title').css('background-color', '#E91E63')
 }
 
 function disableStop () {
   buttonStart.disabled = false
   buttonStop.disabled = true
-  cardTitle.innerHTML = 'Session not active'
-  $('.mdl-card__title').css('background-color', '#2196F3')
 }
 
 if (sessionActive) {
@@ -54,7 +49,7 @@ socket.on('lecturer_recv', function (msg) {
       difficulty.update()
     }
   } else if (msg.hasOwnProperty('question')) {
-    $('#questions').prepend('<li class="mdl-list__item-text-body"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
+    $('#questions').prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
   } else if (msg.hasOwnProperty('active')) {
     console.log(msg['active'])
     if (msg['active']) {
@@ -88,6 +83,9 @@ let speed = new Chart(ctxSpeed, {
       'Slow',
       'Fast'
     ]
+  },
+  options: {
+    responsive: false
   }
 })
 
@@ -110,5 +108,8 @@ let difficulty = new Chart(ctxDifficulty, {
       'Easy',
       'Hard'
     ]
+  },
+  options: {
+    responsive: false
   }
 })

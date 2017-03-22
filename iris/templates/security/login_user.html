@@ -2,9 +2,9 @@
 {% block title %} IRIS - login {% endblock title %}
 
 {% block content %}
-    <div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--4-col-phone mdl-cell--3-offset mdl-cell--2-offset-tablet">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--4-offset mdl-cell--2-offset-tablet">
         <div class="mdl-card mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-card--expand">
+            <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
                 <h2 id="card_title" class="mdl-card__title-text">Lecturer login</h2>
             </div>
             <div class="mdl-card__supporting-text">
@@ -16,15 +16,16 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        Please fill in your login information below
+                        <h5>Please fill in your login information below</h5>
                     {% endif %}
                 {%- endwith %}
-
-                <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form" class="login-form">
                     {{ login_user_form.hidden_tag() }}
                     <div class="mdl-textfield mdl-js-textfield">
                         <label class="mdl-textfield__label" for="{{ login_user_form.email.id }}">Email</label>
-                        <input class="mdl-textfield__input" type="text" name="{{ login_user_form.email.name }}"
+                        <input class="mdl-textfield__input" type="email" name="{{ login_user_form.email.name }}"
                                id="{{ login_user_form.email.id }}"/>
                         {% if login_user_form.email.errors %}
                             {% for error in login_user_form.email.errors %}
@@ -42,10 +43,13 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                    <div class="actions">
+                        <hr/>
+                        <input type="submit"
+                               class="mdl-button mdl-button--raised mdl-js-button mdl-js-ripple-effect mdl-button--accent"
                                value="Log in"/>
-                        <a class="mdl-navigation__link" href="{{ url_for('security.register') }}">Register user</a>
+                        <a class="mdl-button mdl-button--primary" href="{{ url_for('security.register') }}">Register
+                            user</a>
                     </div>
                 </form>
             </div>
