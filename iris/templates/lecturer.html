@@ -29,13 +29,18 @@
                 <h2 class="mdl-card__title-text">Add new course</h2>
             </div>
             <div class="mdl-card__supporting-text">
-                <form action="#" method="POST" name="#">
+                <form action="#" id="course-new">
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" name="course" id="course"/>
-                        <label class="mdl-textfield__label" for="course">Course code</label>
+                        <input class="mdl-textfield__input" type="text" name="course-code" id="course-new-code"/>
+                        <label class="mdl-textfield__label" for="course-code">Course code</label>
                     </div>
-                    <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                           value="Add course"/>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" name="course-name" id="course-new-name"/>
+                        <label class="mdl-textfield__label" for="course-name">Course name</label>
+                    </div>
+                    <button type="submit" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect">
+                        Add course
+                    </button>
                 </form>
             </div>
         </div>
@@ -49,7 +54,7 @@
                         <input class="mdl-textfield__input" type="text" name="course" id="course"/>
                         <label class="mdl-textfield__label" for="course">Course code</label>
                     </div>
-                    <input type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                    <input type="submit" class="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
                            value="Assign"/>
                 </form>
             </div>
@@ -58,5 +63,7 @@
 {% endblock content %}
 
 {% block scripts %}
+    <script src="{{ url_for('static', filename="js/vendor/socket.io-1.4.5.js") }}"></script>
     <script src="{{ url_for('static', filename="js/vendor/jquery-3.1.1.min.js") }}"></script>
+    <script src="{{ url_for('static', filename="js/lecturer.js") }}"></script>
 {% endblock scripts %}
