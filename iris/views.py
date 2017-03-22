@@ -13,7 +13,8 @@ COURSE_ID = 1
 @app.route('/index')
 def index():
     """The main entry point."""
-    return render_template('index.html')
+    all_courses = models.Course.query.all()
+    return render_template('index.html', courses=all_courses)
 
 
 @app.route('/student')
@@ -163,7 +164,7 @@ def get_course_id(course_name):
 
 def get_lecture_session(course_id):
     """Retrieve the current session for the given course ID."""
-    return get_model_or_create(models.LectureSession, (course_id,))
+    return get_model_or_create(models.LectureSession, {'course_id': course_id})
 
 
 def get_session_feedback(session_id, action_name):
@@ -174,21 +175,26 @@ def get_session_feedback(session_id, action_name):
     A new one will be created if none matches.
 
     """
-    return get_model_or_create(models.SessionFeedback, (session_id, action_name))
+    return get_model_or_create(models.SessionFeedback, {'session_id': session_id,
+                                                        'action_name': action_name})
 
 
 def get_model_or_create(model, parameters):
     """
 
-    Retrieve a database object (of type model) matching the parameters tuple.
+    Retrieve a database object (of type model) matching the parameters dict.
 
-    Matching is done on primary keys.
+    The dict is unpacked when filtering.
     If no matching object is found, a new one is created.
 
     """
-    retrieved_model = model.query.get(parameters)
+    models_matching = model.query.filter_by(**parameters)
+    if models_matching.count() > 1:
+        raise RuntimeError('More than one row matched query.')
+    else:
+        retrieved_model = models_matching.first()
     if retrieved_model is None:
-        retrieved_model = model(*parameters)
+        retrieved_model = model(**parameters)
         db.session.add(retrieved_model)
         db.session.commit()
     return retrieved_model

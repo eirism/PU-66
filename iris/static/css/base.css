@@ -2,6 +2,7 @@
 @import url(lecturer_session.css);
 @import url(student_session.css);
 @import url(security.css);
+@import url(index.css);
 
 body {
     background-color: #E3F2FD;
