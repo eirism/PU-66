@@ -70,18 +70,13 @@ def handle_question(message, l_session, course_id):
     if len(questions) < 2:
         group = max_group
     else:
-        print("123")
-        print(questions)
         similar_questions = similarity.similarity(questions, new_question, 0.85)
         print("similar questions found: ", similar_questions)
     if similar_questions:
         # Get group
         for q in all_questions:
             if similar_questions[0] == q.question:
-                # print(q.question)
-                # print("grp =", q.group)
                 group = q.group
-        # print(group)
     else:
         group = max_group+1
     s_question = models.Questions(l_session.session_id, new_question, group)
