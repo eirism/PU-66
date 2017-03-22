@@ -14,7 +14,6 @@ body {
 
 main {
     padding: 16px 0;
-    min-width: 1024px;
 }
 
 .mdl-grid {
@@ -31,6 +30,5 @@ main {
 }
 
 .mdl-card__title {
-    transition: 0.25s;
     height: 64px;
 }
