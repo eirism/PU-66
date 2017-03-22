@@ -149,7 +149,7 @@ def handle_lecturer_send(message):
     db.session.commit()
 
 
-@socketio.on('lecturer_course_new')
+@socketio.on('lecturer_course_new_send')
 def handle_lecturer_course_new(message):
     if not current_user.is_authenticated:
         return
@@ -159,7 +159,10 @@ def handle_lecturer_course_new(message):
     user_datastore.add_role_to_user(current_user, new_course)
     db.session.commit()
 
-
+    emit('lecturer_course_new_recv', {
+        'code': code,
+        'name': name
+    })
 
 
 @socketio.on('join')
