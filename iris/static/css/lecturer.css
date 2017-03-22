@@ -1,3 +1,20 @@
+.table_row{
+    padding: 0px !important;
+}
+
+.course_links{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 24px;
+    height: 100%;
+}
+
+.course_links:link, .course_links:visited, .course_links:hover, .course_links:active {
+    color: rgba(0, 0, 0, .54);
+    text-decoration: none;
+}
+
 #table_courses{
     width: 100%;
     border: none;

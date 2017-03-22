@@ -9,8 +9,9 @@
             </div>
             <table id="table_courses" class="mdl-data-table mdl-js-data-table mdl-card__supporting-text">
                 <tbody>
-                    <tr class="table_row" data-href="#"><td class="mdl-data-table__cell--non-numeric">TDT4140 - Programvareutvikling</td></tr>
-                    <tr class="table_row" data-href="#"><td class="mdl-data-table__cell--non-numeric">TDT4180 - Menneske - maskin-interaksjon</td></tr>
+                {% for course in courses %}
+                    <tr data-href="#"><td class="table_row mdl-data-table__cell--non-numeric"><a class="course_links" href="{{ url_for('session_control', course=course.code) }}">{{ course.code }} - {{ course.name }}</a></td></tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -50,5 +51,4 @@
 
 {% block scripts %}
     <script src="{{ url_for('static', filename="js/vendor/jquery-3.1.1.min.js") }}"></script>
-    <script src="{{ url_for('static', filename='js/lecturer.js') }}"></script>
 {% endblock scripts %}
