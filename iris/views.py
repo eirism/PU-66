@@ -152,6 +152,13 @@ def handle_lecturer_send(message):
 
 @socketio.on('lecturer_course_new_send')
 def handle_lecturer_course_new(message):
+    """
+
+    Receives socket emitted from lecturer page when creating and adding a new course
+
+    Emits a socket back with the recently added data for "instant" display on the page
+
+    """
     if not current_user.is_authenticated:
         return
     code = message['code']
