@@ -1,3 +1,4 @@
+"""Utility for creating the DB."""
 # From https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iv-database
 
 import os.path
@@ -10,6 +11,7 @@ from iris import db
 
 
 def create_db():
+    """Create the DB."""
     db.create_all()
     if not os.path.exists(SQLALCHEMY_MIGRATE_REPO):
         api.create(SQLALCHEMY_MIGRATE_REPO, 'database repository')

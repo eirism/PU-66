@@ -1,3 +1,4 @@
+"""Utility for creating a migration."""
 # From https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iv-database
 
 import imp
@@ -10,6 +11,7 @@ from iris import db
 
 
 def migrate_db():
+    """Create a migration (difference between DB and models)."""
     v = api.db_version(SQLALCHEMY_DATABASE_URI, SQLALCHEMY_MIGRATE_REPO)
     migration = SQLALCHEMY_MIGRATE_REPO + ('/versions/%03d_migration.py' % (v + 1))
     tmp_module = imp.new_module('old_model')
