@@ -1,5 +1,7 @@
 appdirs==1.4.0
 blinker==1.4
+boto==2.46.1
+bz2file==0.98
 click==6.7
 coverage==4.3.4
 decorator==4.0.11
@@ -15,11 +17,13 @@ Flask-Security==1.7.5
 Flask-SocketIO==2.8.2
 Flask-SQLAlchemy==2.1
 Flask-WTF==0.14.2
+gensim==1.0.1
 greenlet==0.4.12
 itsdangerous==0.24
 Jinja2==2.9.5
 MarkupSafe==0.23
 mccabe==0.6.1
+numpy==1.12.1
 packaging==16.8
 passlib==1.7.1
 pbr==1.10.0
@@ -33,7 +37,10 @@ pytest-cov==2.4.0
 pytest-flask==0.10.0
 python-engineio==1.1.2
 python-socketio==1.6.3
+requests==2.13.0
+scipy==0.19.0
 six==1.10.0
+smart-open==1.5.1
 SQLAlchemy==1.1.5
 sqlalchemy-migrate==0.10.0
 sqlparse==0.2.2
