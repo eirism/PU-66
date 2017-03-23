@@ -1,12 +1,10 @@
 """Module for the views and handlers for socketIO."""
 
-from flask import render_template, redirect, url_for
+from flask import render_template
 from flask_security import login_required, current_user
 from flask_socketio import emit, join_room, rooms
 
 from iris import app, models, db, socketio
-
-COURSE_ID = 1
 
 
 @app.route('/')
@@ -15,12 +13,6 @@ def index():
     """The main entry point."""
     all_courses = models.Course.query.all()
     return render_template('index.html', courses=all_courses)
-
-
-@app.route('/student')
-def student():
-    """Where students find their course."""
-    return redirect(url_for('student_feedback', course=1))
 
 
 @app.route('/student/<course>')
@@ -158,8 +150,7 @@ def client_connect(message):
 
 def get_course_id(course_name):
     """Return the course ID for the course with the given name."""
-    # TODO: get correct course_name
-    return COURSE_ID
+    return models.Course.query.filter_by(code=course_name).first_or_404().id
 
 
 def get_lecture_session(course_id):
