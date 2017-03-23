@@ -1,12 +1,10 @@
 """Module for the views and handlers for socketIO."""
 
-from flask import render_template, redirect, url_for
+from flask import render_template
 from flask_security import login_required, current_user
 from flask_socketio import emit, join_room, rooms
 
-from iris import app, models, db, socketio, similarity
-
-COURSE_ID = 1
+from iris import app, models, db, socketio, user_datastore, similarity
 
 
 @app.route('/')
@@ -15,12 +13,6 @@ def index():
     """The main entry point."""
     all_courses = models.Course.query.all()
     return render_template('index.html', courses=all_courses)
-
-
-@app.route('/student')
-def student():
-    """Where students find their course."""
-    return redirect(url_for('student_feedback', course=1))
 
 
 @app.route('/student/<course>')
@@ -175,6 +167,29 @@ def handle_lecturer_send(message):
     db.session.commit()
 
 
+@socketio.on('lecturer_course_new_send')
+def handle_lecturer_course_new(message):
+    """
+
+    Receives socket emitted from lecturer page when creating and adding a new course
+
+    Emits a socket back with the recently added data for "instant" display on the page
+
+    """
+    if not current_user.is_authenticated:
+        return
+    code = message['code']
+    name = message['name']
+    new_course = user_datastore.create_role(code=code, name=name)
+    user_datastore.add_role_to_user(current_user, new_course)
+    db.session.commit()
+
+    emit('lecturer_course_new_recv', {
+        'code': code,
+        'name': name
+    })
+
+
 @socketio.on('join')
 def client_connect(message):
     """Join students and lecturers to the room matching the course ID."""
@@ -183,8 +198,7 @@ def client_connect(message):
 
 def get_course_id(course_name):
     """Return the course ID for the course with the given name."""
-    # TODO: get correct course_name
-    return COURSE_ID
+    return models.Course.query.filter_by(code=course_name).first_or_404().id
 
 
 def get_lecture_session(course_id):

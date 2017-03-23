@@ -4,7 +4,7 @@ def test_init(app, session, client, client_socketio):
 
 
 def test_200_routes(client):
-    endpoints = ['/', '/student/session']
+    endpoints = ['/']
     from sys import stderr
     for endpoint in endpoints:
         tmp_rv = client.get(endpoint)
