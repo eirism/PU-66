@@ -11,7 +11,9 @@ socketio = SocketIO(app, async_mode='eventlet')
 db = SQLAlchemy(app)
 toolbar = DebugToolbarExtension(app)
 
-from iris import views, models  # noqa
+from iris import models  # noqa
 
 user_datastore = SQLAlchemyUserDatastore(db, models.User, models.Course)
 security = Security(app, user_datastore)
+
+from iris import views  # noqa

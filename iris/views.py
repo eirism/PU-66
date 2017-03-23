@@ -4,7 +4,7 @@ from flask import render_template
 from flask_security import login_required, current_user
 from flask_socketio import emit, join_room, rooms
 
-from iris import app, models, db, socketio
+from iris import app, models, db, socketio, user_datastore
 
 
 @app.route('/')
@@ -140,6 +140,29 @@ def handle_lecturer_send(message):
     emit('student_recv', {'active': l_session.active}, room=course_id)
     db.session.add(l_session)
     db.session.commit()
+
+
+@socketio.on('lecturer_course_new_send')
+def handle_lecturer_course_new(message):
+    """
+
+    Receives socket emitted from lecturer page when creating and adding a new course
+
+    Emits a socket back with the recently added data for "instant" display on the page
+
+    """
+    if not current_user.is_authenticated:
+        return
+    code = message['code']
+    name = message['name']
+    new_course = user_datastore.create_role(code=code, name=name)
+    user_datastore.add_role_to_user(current_user, new_course)
+    db.session.commit()
+
+    emit('lecturer_course_new_recv', {
+        'code': code,
+        'name': name
+    })
 
 
 @socketio.on('join')
