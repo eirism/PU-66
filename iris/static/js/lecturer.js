@@ -22,7 +22,7 @@ socket.on('lecturer_course_new_recv', function (msg) {
   $('#table_courses').children().append(
     '<tr>' +
       '<td class="table_row mdl-data-table__cell--non-numeric">' +
-        '<a class="course_links" href="/lecturer/{code}/session">' + code + ' - ' + name + '</a>' +
+        '<a class="course_links" href="/lecturer/' + code + '/session">' + code + ' - ' + name + '</a>' +
       '</td>' +
     '</tr>'
   )
