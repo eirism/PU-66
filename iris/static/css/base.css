@@ -1,6 +1,8 @@
-@import url(student_session.css);
+@import url(lecturer.css);
 @import url(lecturer_session.css);
+@import url(student_session.css);
 @import url(security.css);
+@import url(index.css);
 
 body {
     background-color: #E3F2FD;
@@ -14,7 +16,6 @@ body {
 
 main {
     padding: 16px 0;
-    min-width: 1024px;
 }
 
 .mdl-grid {
@@ -28,9 +29,4 @@ main {
 
 .mdl-card {
     margin-bottom: 16px;
-}
-
-.mdl-card__title {
-    transition: 0.25s;
-    height: 64px;
 }

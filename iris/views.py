@@ -1,3 +1,5 @@
+"""Module for the views and handlers for socketIO."""
+
 from flask import render_template, redirect, url_for
 from flask_security import login_required, current_user
 from flask_socketio import emit, join_room, rooms
@@ -10,16 +12,27 @@ COURSE_ID = 1
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    """The main entry point."""
+    all_courses = models.Course.query.all()
+    return render_template('index.html', courses=all_courses)
 
 
 @app.route('/student')
 def student():
+    """Where students find their course."""
     return redirect(url_for('student_feedback', course=1))
 
 
 @app.route('/student/<course>')
 def student_feedback(course):
+    """
+
+    The student view of a feedback session.
+
+    Retrieves the available button actions,
+    the current questions and the lecture's status.
+
+    """
     course_id = get_course_id(course)
     l_session = get_lecture_session(course_id)
     actions = app.config['BUTTON_ACTIONS']
@@ -34,12 +47,21 @@ def student_feedback(course):
 @app.route('/lecturer')
 @login_required
 def lecturer():
-    return redirect(url_for('session_control', course=1))
+    """
+
+    The lecturer main page.
+
+    Where lecturers can see their courses, add new ones,
+    join existing ones and start a feedback session.
+
+    """
+    return render_template('lecturer.html', courses=current_user.roles)
 
 
 @app.route('/lecturer/<course>/session')
 @login_required
 def session_control(course):
+    """The lecturer view of a feedback session."""
     course_id = get_course_id(course)
     l_session = get_lecture_session(course_id)
     counts = dict()
@@ -57,6 +79,7 @@ def session_control(course):
 
 
 def handle_question(message, l_session, course_id):
+    """Create a new question, saves it and push it to the correct clients."""
     new_question = str(message['question'])
     all_questions = models.Questions.query.filter_by(session_id=l_session.session_id).all()
     questions = list()
@@ -90,6 +113,7 @@ def handle_question(message, l_session, course_id):
 
 
 def handle_feedback(message, l_session, course_id):
+    """Increment a feedback's count and push it to the lecturer(s)."""
     action = message['action']
     s_feedback = get_session_feedback(l_session.session_id, action)
     s_feedback.count += 1
@@ -99,6 +123,7 @@ def handle_feedback(message, l_session, course_id):
 
 @socketio.on('student_send')
 def handle_student_send(message):
+    """Receive json from students and perform the action associated with the content."""
     course_id = message['course_id']
     if course_id not in rooms():
         return
@@ -114,6 +139,17 @@ def handle_student_send(message):
 
 @socketio.on('lecturer_send')
 def handle_lecturer_send(message):
+    """
+
+    Handle incoming json from lecturers.
+
+    Receive json from lecturers, starting and stopping the session
+    according to the messages content.
+
+    If session is stopped and then started, the associated feedback
+    are deleted.
+
+    """
     if not current_user.is_authenticated:
         return
     course_id = message['course_id']
@@ -141,26 +177,49 @@ def handle_lecturer_send(message):
 
 @socketio.on('join')
 def client_connect(message):
+    """Join students and lecturers to the room matching the course ID."""
     join_room(message['course_id'])
 
 
 def get_course_id(course_name):
+    """Return the course ID for the course with the given name."""
     # TODO: get correct course_name
     return COURSE_ID
 
 
 def get_lecture_session(course_id):
-    return get_model_or_create(models.LectureSession, (course_id,))
+    """Retrieve the current session for the given course ID."""
+    return get_model_or_create(models.LectureSession, {'course_id': course_id})
 
 
 def get_session_feedback(session_id, action_name):
-    return get_model_or_create(models.SessionFeedback, (session_id, action_name))
+    """
+
+    Retrieve the the feedback with name matching action_name.
+
+    A new one will be created if none matches.
+
+    """
+    return get_model_or_create(models.SessionFeedback, {'session_id': session_id,
+                                                        'action_name': action_name})
 
 
 def get_model_or_create(model, parameters):
-    retrieved_model = model.query.get(parameters)
+    """
+
+    Retrieve a database object (of type model) matching the parameters dict.
+
+    The dict is unpacked when filtering.
+    If no matching object is found, a new one is created.
+
+    """
+    models_matching = model.query.filter_by(**parameters)
+    if models_matching.count() > 1:
+        raise RuntimeError('More than one row matched query.')
+    else:
+        retrieved_model = models_matching.first()
     if retrieved_model is None:
-        retrieved_model = model(*parameters)
+        retrieved_model = model(**parameters)
         db.session.add(retrieved_model)
         db.session.commit()
     return retrieved_model
