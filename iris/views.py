@@ -180,6 +180,9 @@ def handle_lecturer_course_new(message):
         return
     code = message['code']
     name = message['name']
+    # TODO: fix unique constraint in new migration
+    if models.Course.query.filter_by(code=code).count() > 0:
+        return
     new_course = user_datastore.create_role(code=code, name=name)
     user_datastore.add_role_to_user(current_user, new_course)
     db.session.commit()
