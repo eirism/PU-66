@@ -42,7 +42,7 @@ function applyFilter () {
 }
 
 applyFilter()
-courseList.on('searchComplete', applyFilter) //TODO: fix this
+courseList.on('searchComplete', applyFilter) // TODO: fix this
 
 $('.name').click(function (e) {
   e.preventDefault()
