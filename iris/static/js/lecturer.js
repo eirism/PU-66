@@ -42,10 +42,9 @@ function applyFilter () {
 }
 
 applyFilter()
-courseList.on('searchComplete', applyFilter)
+courseList.on('searchComplete', applyFilter) //TODO: fix this
 
-
-$('#ayy').click(function (e) {
+$('.name').click(function (e) {
   e.preventDefault()
 
   let course = $.trim($(this).text).split(' - ')
@@ -65,7 +64,6 @@ $('#ayy').click(function (e) {
   }
   return false
 })
-
 
 socket.on('lecturer_course_existing_recv', function (msg) {
   let code = msg['code']
