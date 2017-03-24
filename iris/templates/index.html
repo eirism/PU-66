@@ -1,23 +1,28 @@
 {% extends "base.html" %}
 {% block title %}IRIS{% endblock %}
 {% block content %}
-<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--4-col-phone mdl-cell--3-offset-desktop mdl-cell--2-offset-tablet">
-    <div class="mdl-card mdl-shadow--2dp">
-        <div id="courses">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="search mdl-textfield__input" type="text" id="course-search">
-                <label class="mdl-textfield__label" for="course-search">Course Code:</label>
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--4-col-phone mdl-cell--3-offset-desktop mdl-cell--2-offset-tablet">
+        <div class="mdl-card mdl-shadow--2dp">
+            <div id="courses">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="search mdl-textfield__input" type="text" id="course-search">
+                    <label class="mdl-textfield__label" for="course-search">Search for a course code</label>
+                </div>
+                <ul class="list mdl-list">
+                    {% for course in courses %}
+                        <li class="mdl-list__item">
+                            <a class="name mdl-list__item-primary-content"
+                               href="{{ url_for('student_feedback', course=course.code) }}">
+                                {{ course.code }} - {{ course.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
-            <ul class="list mdl-list">
-                {% for course in courses %}
-                    <li class="mdl-list__item"><a class="name mdl-list__item-primary-content" href="{{ url_for('student_feedback', course=course.code) }}">{{ course.code }}-{{ course.name }}</a></li>
-                {% endfor %}
-            </ul>
         </div>
     </div>
-</div>
 {% endblock %}
 {% block scripts %}
-<script src="{{ url_for('static', filename='js/vendor/list.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/vendor/list.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}

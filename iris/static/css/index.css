@@ -1,3 +1,7 @@
 #courses {
     margin: auto;
 }
+
+#courses ul:empty {
+    display: none;
+}

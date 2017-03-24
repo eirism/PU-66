@@ -47,7 +47,8 @@ def lecturer():
     join existing ones and start a feedback session.
 
     """
-    return render_template('lecturer.html', courses=current_user.roles)
+    all_courses = models.Course.query.all()
+    return render_template('lecturer.html', my_courses=current_user.roles, courses=all_courses)
 
 
 @app.route('/lecturer/<course>/session')
@@ -171,7 +172,8 @@ def handle_lecturer_send(message):
 def handle_lecturer_course_new(message):
     """
 
-    Receives socket emitted from lecturer page when creating and adding a new course
+    Receives socket emitted from lecturer page when creating and subsequently adding a new
+    course
 
     Emits a socket back with the recently added data for "instant" display on the page
 
@@ -188,6 +190,30 @@ def handle_lecturer_course_new(message):
     db.session.commit()
 
     emit('lecturer_course_new_recv', {
+        'code': code,
+        'name': name
+    })
+
+
+@socketio.on('lecturer_course_existing_send')
+def handle_lecturer_course_existing(message):
+    """
+
+    Receives socket emitted from lecturer page when adding an existing course to "my courses"
+
+    Emits a socket back with the recently added data for "instant" display on the page
+
+    """
+    print('im in')
+    if not current_user.is_authenticated:
+        return
+    code = message['code']
+    name = message['name']
+    existing_course = user_datastore.find_role(code=code, name=name)
+    user_datastore.add_role_to_user(current_user, existing_course)
+    db.session.commit()
+
+    emit('lecturer_course_existing_recv', {
         'code': code,
         'name': name
     })
