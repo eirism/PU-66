@@ -4,7 +4,7 @@ from flask import render_template
 from flask_security import login_required, current_user
 from flask_socketio import emit, join_room, rooms
 
-from iris import app, models, db, socketio, user_datastore
+from iris import app, models, db, socketio, user_datastore, similarity
 
 
 @app.route('/')
@@ -28,12 +28,12 @@ def student_feedback(course):
     course_id = get_course_id(course)
     l_session = get_lecture_session(course_id)
     actions = app.config['BUTTON_ACTIONS']
-    all_questions = list(reversed(models.Questions.query.all()))
+    grouped_questions = get_and_group_questions(l_session.session_id)
     return render_template('student_session.html',
                            course_id=course_id,
                            actions=actions,
                            active=l_session.active,
-                           questions=all_questions)
+                           questions=grouped_questions)
 
 
 @app.route('/lecturer')
@@ -59,7 +59,7 @@ def session_control(course):
     l_session = get_lecture_session(course_id)
     counts = dict()
     actions = app.config['BUTTON_ACTIONS']
-    all_questions = list(reversed(models.Questions.query.all()))
+    grouped_questions = get_and_group_questions(l_session.session_id)
     for action in actions:
         s_feedback = get_session_feedback(l_session.session_id, action[0])
         counts[action[0]] = s_feedback.count
@@ -68,16 +68,41 @@ def session_control(course):
                            counts=counts,
                            actions=actions,
                            active=l_session.active,
-                           questions=all_questions)
+                           questions=grouped_questions)
 
 
 def handle_question(message, l_session, course_id):
     """Create a new question, saves it and push it to the correct clients."""
     new_question = str(message['question'])
-    s_question = models.Questions(l_session.session_id, new_question)
+    all_questions = models.Questions.query.filter_by(session_id=l_session.session_id).all()
+    questions = list()
+    max_group = -1
+    similar_questions = list()
+    for q in all_questions:
+        questions.append(q.question)
+        if q.group > max_group:
+            max_group = q.group
+    # Needs atleast two existing questions to compare for reasons unknown
+    if len(questions) < 2:
+        group = max_group
+    else:
+        try:
+            similar_questions = similarity.similarity(questions, new_question, 0.85)
+            print("similar questions found: ", similar_questions)
+        except Exception as e:
+            print(e)
+    if similar_questions:
+        # Get group
+        for q in all_questions:
+            if similar_questions[0] == q.question:
+                group = q.group
+    else:
+        group = max_group+1
+    s_question = models.Questions(l_session.session_id, new_question, group)
     db.session.add(s_question)
-    emit('student_recv', message, room=course_id)
-    emit('lecturer_recv', message, room=course_id)
+    response = {'question': [new_question, group]}
+    emit('student_recv', response, room=course_id)
+    emit('lecturer_recv', response, room=course_id)
 
 
 def handle_feedback(message, l_session, course_id):
@@ -127,7 +152,7 @@ def handle_lecturer_send(message):
     new_state = message['session_control']
     if new_state == 'start' and not l_session.active:
         old_feedbacks = models.SessionFeedback.query.filter_by(session_id=l_session.session_id)
-        models.Questions.query.delete()
+        models.Questions.query.filter_by(session_id=l_session.session_id).delete()
         emit('student_recv', {'command': "deleteQuestions"}, room=course_id)
         emit('lecturer_recv', {'command': "deleteQuestions"}, room=course_id)
         for feedback in old_feedbacks.all():
@@ -157,6 +182,9 @@ def handle_lecturer_course_new(message):
         return
     code = message['code']
     name = message['name']
+    # TODO: fix unique constraint in new migration
+    if models.Course.query.filter_by(code=code).count() > 0:
+        return
     new_course = user_datastore.create_role(code=code, name=name)
     user_datastore.add_role_to_user(current_user, new_course)
     db.session.commit()
@@ -238,3 +266,18 @@ def get_model_or_create(model, parameters):
         db.session.add(retrieved_model)
         db.session.commit()
     return retrieved_model
+
+
+def get_and_group_questions(session_id):
+    """
+
+    Return a grouped dict of questions.
+
+    The key are the group id and the value a list of the questions.
+
+    """
+    all_questions = reversed(models.Questions.query.filter_by(session_id=session_id).all())
+    grouped_questions = dict()
+    for question in all_questions:
+        grouped_questions.setdefault(question.group, list()).append(question)
+    return grouped_questions

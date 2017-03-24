@@ -56,12 +56,14 @@ class Questions(db.Model):
     timestamp = db.Column(db.DateTime)
     answered = db.Column(db.Boolean, default=False)
     flagged = db.Column(db.Boolean, default=False)
+    group = db.Column(db.Integer)
 
-    def __init__(self, session_id, question):
+    def __init__(self, session_id, question, group):
         """Create a new question, connected to session_id."""
         self.session_id = session_id
         self.question = question
         self.timestamp = datetime.utcnow()
+        self.group = group
 
     def __repr__(self):
         """A textual representation of the class."""
