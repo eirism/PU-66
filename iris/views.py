@@ -147,7 +147,8 @@ def handle_lecturer_send(message):
 def handle_lecturer_course_new(message):
     """
 
-    Receives socket emitted from lecturer page when creating and subsequently adding a new course
+    Receives socket emitted from lecturer page when creating and subsequently adding a new 
+    course
 
     Emits a socket back with the recently added data for "instant" display on the page
 
