@@ -1,18 +1,25 @@
-@import url(student_session.css);
+@import url(lecturer.css);
 @import url(lecturer_session.css);
+@import url(student_session.css);
+@import url(security.css);
+@import url(index.css);
 
 body {
     background-color: #E3F2FD;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
-.mdl-layout__header {
-    margin-bottom: 32px; /*Creates a weird effect when you scroll*/
-}
-
-.mdl-layout__title:link, .mdl-layout__title:visited, .mdl-layout__title:hover, .mdl-layout__title:active{
+.mdl-layout__title:link, .mdl-layout__title:visited, .mdl-layout__title:hover, .mdl-layout__title:active {
     color: white;
     text-decoration: none;
+}
+
+main {
+    padding: 16px 0;
+}
+
+.mdl-grid {
+    padding: 0;
 }
 
 .mdl-cell .mdl-card {
@@ -20,8 +27,6 @@ body {
     min-height: inherit;
 }
 
-.mdl-card__title {
-    transition: 0.25s;
-    background-color: #2196F3;
-    color: #fff;
+.mdl-card {
+    margin-bottom: 16px;
 }

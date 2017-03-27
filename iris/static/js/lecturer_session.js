@@ -1,21 +1,16 @@
 const buttonStart = document.getElementById('button_start')
 const buttonStop = document.getElementById('button_stop')
-const cardTitle = document.getElementById('card_title')
 let socket = io()
 socket.emit('join', {'course_id': courseID})
 
 function disableStart () {
   buttonStart.disabled = true
   buttonStop.disabled = false
-  cardTitle.innerHTML = 'Session active'
-  $('.mdl-card__title').css('background-color', '#E91E63')
 }
 
 function disableStop () {
   buttonStart.disabled = false
   buttonStop.disabled = true
-  cardTitle.innerHTML = 'Session not active'
-  $('.mdl-card__title').css('background-color', '#2196F3')
 }
 
 if (sessionActive) {
@@ -54,7 +49,16 @@ socket.on('lecturer_recv', function (msg) {
       difficulty.update()
     }
   } else if (msg.hasOwnProperty('question')) {
-    $('#questions').prepend('<li class="mdl-list__item-text-body"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + msg['question'] + '</span></li>')
+    let question = msg['question'][0]
+    let groupNum = msg['question'][1]
+    let questionList = $('#questions-' + groupNum)
+    if (!questionList.length) {
+      questionList = $('<ul>', {id: 'questions-' + groupNum, 'class': 'mdl-list'})
+      let questionLog = $('.questions-log')
+      questionLog.prepend('<hr>')
+      questionLog.prepend(questionList)
+    }
+    questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>')
   } else if (msg.hasOwnProperty('active')) {
     console.log(msg['active'])
     if (msg['active']) {
@@ -64,7 +68,7 @@ socket.on('lecturer_recv', function (msg) {
     }
   } else if (msg.hasOwnProperty('command')) {
     if (msg['command'] === 'deleteQuestions') {
-      $('ul').empty()
+      $('.questions-log').empty()
     }
   }
 })
@@ -81,13 +85,16 @@ let speed = new Chart(ctxSpeed, {
       ],
       backgroundColor: [
         'rgba(172, 236, 0, 0.75)',
-        'rgba(0, 187, 214, 0.75)',
+        'rgba(0, 187, 214, 0.75)'
       ]
     }],
     labels: [
       'Slow',
       'Fast'
     ]
+  },
+  options: {
+    responsive: false
   }
 })
 
@@ -110,5 +117,8 @@ let difficulty = new Chart(ctxDifficulty, {
       'Easy',
       'Hard'
     ]
+  },
+  options: {
+    responsive: false
   }
 })

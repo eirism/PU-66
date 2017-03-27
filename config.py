@@ -1,4 +1,6 @@
+"""Contains config variables."""
 import os
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 PORT = int(os.environ.get('PORT', 5000))
@@ -13,6 +15,8 @@ SECURITY_PASSWORD_SALT = SECRET_KEY
 SECURITY_REGISTERABLE = True
 SECURITY_SEND_REGISTER_EMAIL = False
 SECURITY_SEND_PASSWORD_EMAIL = False
+SECURITY_POST_REGISTER_VIEW = '/lecturer'
+SECURITY_POST_LOGIN_VIEW = '/lecturer'
 
 BUTTON_ACTIONS = [
     ['slow', 'Slow'],

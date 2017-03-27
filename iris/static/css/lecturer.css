@@ -1,0 +1,35 @@
+#table_courses {
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+}
+
+#table_courses tr:first-child td {
+    border-top: none;
+}
+
+#table_courses tr:last-child td {
+    border-bottom: none;
+}
+
+#table_courses td {
+    padding: 0;
+}
+
+.course_links {
+    display: inline-block;
+    height: 100%;
+    width: calc(100% - 32px);
+    padding: 16px;
+}
+
+.course_links:link, .course_links:visited, .course_links:hover, .course_links:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+#course-new .mdl-textfield, #course-new button, #course-existing .mdl-textfield, #course-existing button {
+    display: block;
+    width: 50%;
+    margin: auto;
+}
