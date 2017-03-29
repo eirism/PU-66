@@ -1,5 +1,22 @@
+html {
+    background: url(../img/bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    background-color: inherit;
+}
+
+main {
+    padding-top: 15%;
+}
+
 #courses {
     margin: auto;
+    padding: 32px;
 }
 
 #courses ul:empty {
