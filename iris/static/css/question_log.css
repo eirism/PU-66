@@ -1,0 +1,14 @@
+.questions-log {
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    padding: 8px;
+    overflow-y: auto;
+    max-height: 700px;
+}
+
+.questions-log ul {
+    margin: 0;
+}
+
+.questions-log .mdl-list__item {
+    padding: 8px;
+}

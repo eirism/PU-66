@@ -1,5 +1,10 @@
 {% extends "base.html" %}
+
 {% block title %}IRIS - session{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lecturer_session.css') }}">
+{% endblock %}
 
 {% block content %}
     <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-cell--1-offset-desktop mdl-cell--1-offset-tablet">

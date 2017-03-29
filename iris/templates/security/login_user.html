@@ -1,5 +1,10 @@
 {% extends "base.html" %}
+
 {% block title %} IRIS - login {% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/security.css') }}">
+{% endblock %}
 
 {% block content %}
     <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-cell--4-offset mdl-cell--2-offset-tablet">

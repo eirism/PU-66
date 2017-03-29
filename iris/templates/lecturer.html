@@ -1,5 +1,10 @@
 {% extends "base.html" %}
+
 {% block title %} IRIS - lecturer {% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lecturer.css') }}">
+{% endblock %}
 
 {% block content %}
     <div class="mdl-cell mdl-cell--5-col mdl-cell--3-col-tablet mdl-cell--4-col-phone mdl-cell--1-offset-desktop mdl-cell--1-offset-tablet">
@@ -45,32 +50,32 @@
                 </form>
             </div>
         </div>
-{#        <div class="mdl-card mdl-shadow--2dp">#}
-{#            <div class="mdl-card__title mdl-color--primary mdl-color-text--white">#}
-{#                <h2 class="mdl-card__title-text">Add existing courses</h2>#}
-{#            </div>#}
-{#            <div class="mdl-card__supporting-text">#}
-{#                <div id="course-existing">#}
-{#                    <div class="mdl-textfield mdl-js-textfield">#}
-{#                        <input class="search mdl-textfield__input" type="text" id="course-search"/>#}
-{#                        <label class="mdl-textfield__label" for="course-search">Course code</label>#}
-{#                    </div>#}
-{#                    <button type="submit"#}
-{#                            class="mdl-button mdl-button--raised mdl-button--accent mdl-js-button mdl-js-ripple-effect">#}
-{#                        Assign#}
-{#                    </button>#}
-{#                    <ul class="list mdl-list">#}
-{#                        {% for course in courses %}#}
-{#                            <li class="mdl-list__item">#}
-{#                                <a class="name mdl-list__item-primary-content" id="{{ course.code }}" href="#">#}
-{#                                    {{ course.code }} - {{ course.name }}#}
-{#                                </a>#}
-{#                            </li>#}
-{#                        {% endfor %}#}
-{#                    </ul>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
+        {#        <div class="mdl-card mdl-shadow--2dp">#}
+        {#            <div class="mdl-card__title mdl-color--primary mdl-color-text--white">#}
+        {#                <h2 class="mdl-card__title-text">Add existing courses</h2>#}
+        {#            </div>#}
+        {#            <div class="mdl-card__supporting-text">#}
+        {#                <div id="course-existing">#}
+        {#                    <div class="mdl-textfield mdl-js-textfield">#}
+        {#                        <input class="search mdl-textfield__input" type="text" id="course-search"/>#}
+        {#                        <label class="mdl-textfield__label" for="course-search">Course code</label>#}
+        {#                    </div>#}
+        {#                    <button type="submit"#}
+        {#                            class="mdl-button mdl-button--raised mdl-button--accent mdl-js-button mdl-js-ripple-effect">#}
+        {#                        Assign#}
+        {#                    </button>#}
+        {#                    <ul class="list mdl-list">#}
+        {#                        {% for course in courses %}#}
+        {#                            <li class="mdl-list__item">#}
+        {#                                <a class="name mdl-list__item-primary-content" id="{{ course.code }}" href="#">#}
+        {#                                    {{ course.code }} - {{ course.name }}#}
+        {#                                </a>#}
+        {#                            </li>#}
+        {#                        {% endfor %}#}
+        {#                    </ul>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
     </div>
 {% endblock content %}
 
