@@ -9,7 +9,7 @@ def similarity(inputTexts, inputText, threshold):
 
         Creates a Vector Space Model of questions.
         Calculates the cosine similarity between different questions in this space.
-        Returns a list of similar questions satisfying.
+        Returns a list of similar questions.
 
         """
     documents = inputTexts
