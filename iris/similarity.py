@@ -45,4 +45,3 @@ def similarity(inputTexts, inputText, threshold):
         if sim[1] > threshold:
             similar_questions.append(inputTexts[sim[0]])
     return similar_questions
-
