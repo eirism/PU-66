@@ -1,9 +1,11 @@
 {% extends "base.html" %}
+
 {% block title %}IRIS{% endblock %}
+
 {% block styles %}
-    {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
+
 {% block content %}
     <div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--4-col-phone mdl-cell--3-offset-desktop mdl-cell--2-offset-tablet">
         <div class="mdl-card mdl-shadow--2dp">
@@ -29,6 +31,7 @@
         </div>
     </div>
 {% endblock %}
+
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/vendor/list.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/index.js') }}"></script>
