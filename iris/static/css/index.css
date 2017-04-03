@@ -14,11 +14,24 @@ main {
     padding-top: 15%;
 }
 
+.mdl-layout__content {
+    overflow-y: hidden;
+}
+
 #courses {
     margin: auto;
     padding: 32px;
+    width: 50%;
 }
 
 #courses ul:empty {
     display: none;
+}
+
+#courses .mdl-textfield {
+    width: 100%;
+}
+
+#courses .mdl-list {
+    width: 100%;
 }
