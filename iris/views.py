@@ -209,7 +209,9 @@ def handle_lecturer_course_existing(message):
         return
     code = message['code']
     name = message['name']
-    existing_course = user_datastore.find_role(code=code, name=name)
+    existing_course = models.Course.query.filter_by(code=code).first_or_404()
+    if existing_course in current_user.roles:
+        return
     user_datastore.add_role_to_user(current_user, existing_course)
     db.session.commit()
 

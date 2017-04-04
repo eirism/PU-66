@@ -44,26 +44,24 @@ function applyFilter () {
 applyFilter()
 courseList.on('searchComplete', applyFilter) // TODO: fix this
 
-$('.name').click(function (e) {
-  e.preventDefault()
+function addCourse (e) {
+  // e.preventDefault()
 
-  let course = $.trim($(this).text).split(' - ')
-  console.log('its me')
+  let course = e.text.replace(/\s/g, '').split('-')
 
   let courseCode = course[0]
   let courseName = course[1]
 
-  if (courseCode.val() && courseName.val()) {
+  if (courseCode && courseName) {
+    searchField.value = ''
     console.log('Course assigned')
     socket.emit('lecturer_course_existing_send', {
-      'code': courseCode.val(),
-      'name': courseName.val()
+      'code': courseCode,
+      'name': courseName
     })
-    courseCode.val('')
-    courseName.val('')
   }
   return false
-})
+}
 
 socket.on('lecturer_course_existing_recv', function (msg) {
   let code = msg['code']
