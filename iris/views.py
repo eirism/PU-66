@@ -49,7 +49,8 @@ def lecturer():
 
     """
     all_courses = models.Course.query.all()
-    return render_template('lecturer.html', my_courses=current_user.roles, courses=all_courses)
+    existing_courses = [course for course in all_courses if course not in current_user.roles]
+    return render_template('lecturer.html', my_courses=current_user.roles, courses=all_courses, existing_courses=existing_courses)
 
 
 @app.route('/lecturer/<course>/session')
