@@ -33,7 +33,8 @@ def student_feedback(course):
                            course_id=course_id,
                            actions=actions,
                            active=l_session.active,
-                           questions=grouped_questions)
+                           questions=grouped_questions,
+                           course_code=course)
 
 
 @app.route('/lecturer')
@@ -68,7 +69,8 @@ def session_control(course):
                            counts=counts,
                            actions=actions,
                            active=l_session.active,
-                           questions=grouped_questions)
+                           questions=grouped_questions,
+                           course_code=course)
 
 
 def handle_question(message, l_session, course_id):
@@ -87,7 +89,7 @@ def handle_question(message, l_session, course_id):
         group = max_group
     else:
         try:
-            similar_questions = similarity.similarity(questions, new_question, 0.85)
+            similar_questions = similarity.similarity(questions, new_question, 0.73)
             print("similar questions found: ", similar_questions)
         except Exception as e:
             print(e)
