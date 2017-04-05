@@ -15,7 +15,13 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
-            <a class="mdl-layout__title" href="{{ url_for('index') }}">IRIS</a>
+            <a class="mdl-layout__title" href="{{ url_for('index') }}">
+                {% if course_code is defined %}
+                    IRIS - {{ course_code }}
+                {% else %}
+                    IRIS
+                {% endif %}
+            </a>
             <div class="mdl-layout-spacer"></div>
             <nav class="mdl-navigation">
                 {% if current_user.is_authenticated %}
