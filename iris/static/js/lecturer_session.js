@@ -123,14 +123,14 @@ let difficulty = new Chart(ctxDifficulty, {
   }
 })
 
-let dialog = document.querySelector('dialog');
-let showDialogButton = document.querySelector('#show-dialog');
-if (! dialog.showModal) {
-    dialogPolyfill.registerDialog(dialog);
+let dialog = document.querySelector('dialog')
+let showDialogButton = document.querySelector('#show-dialog')
+if (!dialog.showModal) {
+    dialogPolyfill.registerDialog(dialog)
 }
-showDialogButton.addEventListener('click', function() {
-    dialog.showModal();
-});
-dialog.querySelector('.close').addEventListener('click', function() {
-    dialog.close();
+showDialogButton.addEventListener('click', function () {
+    dialog.showModal()
+})
+dialog.querySelector('.close').addEventListener('click', function () {
+    dialog.close()
 });
