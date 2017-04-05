@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}IRIS - student{% endblock title %}
+{% block title %}IRIS - {{ course_code }}{% endblock title %}
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/student_session.css') }}">
