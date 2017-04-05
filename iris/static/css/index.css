@@ -14,11 +14,40 @@ main {
     padding-top: 15%;
 }
 
+.mdl-layout__content {
+    overflow-y: hidden;
+}
+
 #courses {
     margin: auto;
     padding: 32px;
+    width: 50%;
 }
 
 #courses ul:empty {
     display: none;
+}
+
+#courses .mdl-textfield {
+    width: 100%;
+}
+
+#courses .mdl-list {
+    width: 100%;
+    margin: 0;
+}
+
+.list .mdl-list__item {
+    padding: 0;
+}
+
+.list .mdl-list__item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: 0.25s;
+}
+
+.list .mdl-list__item-primary-content {
+    padding: 8px;
+    min-height: inherit;
+    font-size: inherit;
 }

@@ -11,18 +11,24 @@
         Similar questions are grouped together.
     </div>
     <div class="questions-log">
-        {% for group in questions %}
-            <ul class="mdl-list" id="questions-{{ group }}">
-                {% for q in questions[group] %}
-                    <li class="mdl-list__item">
+        {% if questions %}
+            {% for group in questions %}
+                {% if not loop.first %}
+                    <hr/>
+                {% endif %}
+                <ul class="mdl-list" id="questions-{{ group }}">
+                    {% for q in questions[group] %}
+                        <li class="mdl-list__item">
                         <span class="mdl-list__item-primary-content">
                             <i class="material-icons mdl-list__item-icon">person</i>
                             {{ q.question }}
                         </span>
-                    </li>
-                {% endfor %}
-            </ul>
-            <hr>
-        {% endfor %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        {% else %}
+            <p>No questions have been asked yet.</p>
+        {% endif %}
     </div>
 </div>

@@ -137,21 +137,26 @@ socket.on('student_recv', function (msg) {
   console.log(msg)
   let receivedStatus = msg.hasOwnProperty('active')
   console.log(receivedStatus)
+  let questionLog = $('.questions-log')
   if (msg.hasOwnProperty('question')) {
+    if (questionLog.has('p').length) {
+      questionLog.empty()
+    }
     let question = msg['question'][0]
     let groupNum = msg['question'][1]
     let questionList = $('#questions-' + groupNum)
     if (!questionList.length) {
       questionList = $('<ul>', {id: 'questions-' + groupNum, 'class': 'mdl-list'})
-      let questionLog = $('.questions-log')
-      questionLog.prepend('<hr>')
+      if (!questionLog.is(':empty')) {
+        questionLog.prepend('<hr>')
+      }
       questionLog.prepend(questionList)
     }
     questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>')
   }
   if (msg.hasOwnProperty('command')) {
     if (msg['command'] === 'deleteQuestions') {
-      $('.questions-log').empty()
+      questionLog.empty().append('<p>No questions have been asked yet.</p>')
     }
   }
   if (msg.hasOwnProperty('active')) {
