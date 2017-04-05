@@ -28,8 +28,13 @@
     text-decoration: none;
 }
 
-#course-new .mdl-textfield, #course-new button, #course-existing .mdl-textfield, #course-existing button {
+#course-new .mdl-textfield, #course-new button {
     display: block;
+    width: 50%;
+    margin: auto;
+}
+
+#course-existing {
     width: 50%;
     margin: auto;
 }
