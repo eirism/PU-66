@@ -24,6 +24,29 @@
                         class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                     Stop
                 </button>
+                <button id="show-dialog" type="button"
+                        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    Add response
+                </button>
+                <dialog class="mdl-dialog">
+                    <h1 class="mdl-card__title-text">Add keywords and response</h1>
+                    <div class="mdl-dialog__content">
+                        <form action="#" id="course-new">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" name="keywords" id="keywords"/>
+                                <label class="mdl-textfield__label" for="keywords">Keywords</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" name="response" id="response"/>
+                                <label class="mdl-textfield__label" for="response">Response</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="mdl-dialog__actions">
+                        <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Add</button>
+                        <button type="button" class="mdl-button close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Cancel</button>
+                    </div>
+                </dialog>
             </div>
             <div class="counts">
                 <span id="text_slow" class="mdl-badge" data-badge="{{ counts['slow'] }}">Slow</span>
