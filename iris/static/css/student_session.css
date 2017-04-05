@@ -7,7 +7,7 @@
 .feedback button {
     margin: 4px;
     width: calc(50% - 8px);
-    height: 64px;
+    height: 48px;
 }
 
 .question-ask {
@@ -19,7 +19,7 @@
 }
 
 .question-ask textarea {
-    max-height: 312px;
+    max-height: 200px;
 }
 
 .question-ask button {

@@ -14,3 +14,12 @@
 canvas {
     margin: 8px auto;
 }
+
+.canvases .mdl-cell {
+    margin: 0;
+    width: calc(50% - 8px);
+}
+
+.canvases .mdl-cell:first-child {
+    margin-right: 16px;
+}
