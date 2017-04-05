@@ -12,3 +12,10 @@
 .questions-log .mdl-list__item {
     padding: 8px;
 }
+
+.questions-log p {
+    margin-bottom: 0;
+    padding: 8px;
+    color: rgba(0, 0, 0, .54);
+    font-style: italic;
+}

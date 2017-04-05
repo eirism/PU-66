@@ -38,6 +38,7 @@ buttonStop.onclick = function () {
 let actions = ['slow', 'fast', 'easy', 'hard']
 
 socket.on('lecturer_recv', function (msg) {
+  let questionLog = $('.questions-log')
   if (msg.hasOwnProperty('action')) {
     console.log(msg['action'])
     $('#text_' + msg['action'][0]).attr('data-badge', msg['action'][1])
@@ -49,13 +50,18 @@ socket.on('lecturer_recv', function (msg) {
       difficulty.update()
     }
   } else if (msg.hasOwnProperty('question')) {
+    if (questionLog.has('p').length) {
+      questionLog.empty()
+    }
     let question = msg['question'][0]
     let groupNum = msg['question'][1]
     let questionList = $('#questions-' + groupNum)
     if (!questionList.length) {
       questionList = $('<ul>', {id: 'questions-' + groupNum, 'class': 'mdl-list'})
-      let questionLog = $('.questions-log')
-      questionLog.prepend('<hr>')
+
+      if (!questionLog.is(':empty')) {
+        questionLog.prepend('<hr>')
+      }
       questionLog.prepend(questionList)
     }
     questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>')
@@ -68,7 +74,7 @@ socket.on('lecturer_recv', function (msg) {
     }
   } else if (msg.hasOwnProperty('command')) {
     if (msg['command'] === 'deleteQuestions') {
-      $('.questions-log').empty()
+      questionLog.empty().append('<p>No questions have been asked yet.</p>')
     }
   }
 })
