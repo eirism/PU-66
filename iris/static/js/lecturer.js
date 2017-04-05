@@ -45,6 +45,7 @@ function applyFilter () {
 applyFilter()
 courseList.on('searchComplete', applyFilter)
 
+/* eslint-disable*/
 function addCourse (e) {
   // e.preventDefault()
 
@@ -69,6 +70,7 @@ function addCourse (e) {
   }
   return false
 }
+/* eslint-enable*/
 
 socket.on('lecturer_course_existing_recv', function (msg) {
   let code = msg['code']
