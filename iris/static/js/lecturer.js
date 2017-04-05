@@ -53,10 +53,6 @@ function addCourse (e) {
 
   let courseCode = course[0]
   let courseName = course[1]
-  let data = {
-    message: courseCode + ' - ' + courseName + ' has been added to your courses.',
-    timeout: 5000
-  }
 
   if (courseCode && courseName) {
     console.log('Course assigned')
@@ -65,7 +61,6 @@ function addCourse (e) {
       'name': courseName
     })
     searchField.value = ''
-    snackbar.MaterialSnackbar.showSnackbar(data)
     applyFilter()
   }
   return false
@@ -75,6 +70,13 @@ function addCourse (e) {
 socket.on('lecturer_course_existing_recv', function (msg) {
   let code = msg['code']
   let name = msg['name']
+
+  let data = {
+    message: code + ' - ' + name + ' has been added to your courses.',
+    timeout: 5000
+  }
+
+  snackbar.MaterialSnackbar.showSnackbar(data)
 
   $('#table_courses').children().append(
     '<tr>' +

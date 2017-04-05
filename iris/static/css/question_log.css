@@ -1,3 +1,8 @@
+.is-small-screen .questions-log {
+    max-height: inherit;
+    overflow-y: inherit;
+}
+
 .questions-log {
     border-top: 1px solid rgba(0, 0, 0, .1);
     padding: 8px;
