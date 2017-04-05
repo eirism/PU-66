@@ -33,3 +33,11 @@
     width: 50%;
     margin: auto;
 }
+
+.mdl-snackbar__action {
+    display: none;
+}
+
+.mdl-snackbar__text {
+    width: 100%;
+}

@@ -1,6 +1,7 @@
 const options = {valueNames: ['name']}
 const courseList = new List('course-existing', options)
 const searchField = document.getElementById('course-search')
+const snackbar = document.getElementById('course_added_notif')
 
 let socket = io()
 
@@ -42,7 +43,7 @@ function applyFilter () {
 }
 
 applyFilter()
-courseList.on('searchComplete', applyFilter) // TODO: fix this
+courseList.on('searchComplete', applyFilter)
 
 function addCourse (e) {
   // e.preventDefault()
@@ -51,14 +52,20 @@ function addCourse (e) {
 
   let courseCode = course[0]
   let courseName = course[1]
+  let data = {
+    message: courseCode + ' added.',
+    timeout: 2000
+  }
 
   if (courseCode && courseName) {
-    searchField.value = ''
     console.log('Course assigned')
     socket.emit('lecturer_course_existing_send', {
       'code': courseCode,
       'name': courseName
     })
+    searchField.value = ''
+    snackbar.MaterialSnackbar.showSnackbar(data)
+    applyFilter()
   }
   return false
 }

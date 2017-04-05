@@ -51,14 +51,10 @@
             </div>
             <div class="mdl-card__supporting-text">
                 <div id="course-existing">
-                    <div class="mdl-textfield mdl-js-textfield">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="search mdl-textfield__input" type="text" id="course-search"/>
                         <label class="mdl-textfield__label" for="course-search">Course code</label>
                     </div>
-                    <button type="submit"
-                            class="mdl-button mdl-button--raised mdl-button--accent mdl-js-button mdl-js-ripple-effect">
-                        Assign
-                    </button>
                     <ul class="list mdl-list">
                         {% for course in courses %}
                             <li class="mdl-list__item">
@@ -68,6 +64,10 @@
                             </li>
                         {% endfor %}
                     </ul>
+                    <div id="course_added_notif" class="mdl-js-snackbar mdl-snackbar">
+                        <div class="mdl-snackbar__text"></div>
+                        <button class="mdl-snackbar__action" type="button"></button>
+                    </div>
                 </div>
             </div>
         </div>
