@@ -49,13 +49,13 @@ courseList.on('searchComplete', applyFilter)
 function addCourse (e) {
   // e.preventDefault()
 
-  let course = e.text.replace(/\s/g, '').split('-')
+  let course = $.trim(e.text).split(' - ')
 
   let courseCode = course[0]
   let courseName = course[1]
   let data = {
-    message: courseCode + ' added.',
-    timeout: 2000
+    message: courseCode + ' - ' + courseName + ' has been added to your courses.',
+    timeout: 5000
   }
 
   if (courseCode && courseName) {

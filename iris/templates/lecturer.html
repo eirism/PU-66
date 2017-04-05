@@ -58,19 +58,21 @@
                     <ul class="list mdl-list">
                         {% for course in courses %}
                             <li class="mdl-list__item">
-                                <a class="name mdl-list__item-primary-content" id="{{ course.code }}" href="#" onclick="addCourse(this)">
+                                <a class="name mdl-list__item-primary-content" id="{{ course.code }}" href="#"
+                                   onclick="addCourse(this)">
                                     {{ course.code }} - {{ course.name }}
                                 </a>
                             </li>
                         {% endfor %}
                     </ul>
-                    <div id="course_added_notif" class="mdl-js-snackbar mdl-snackbar">
-                        <div class="mdl-snackbar__text"></div>
-                        <button class="mdl-snackbar__action" type="button"></button>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="course_added_notif" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
     </div>
 {% endblock content %}
 
