@@ -35,3 +35,17 @@ main {
 #courses .mdl-list {
     width: 100%;
 }
+
+.list .mdl-list__item {
+    padding: 0;
+}
+
+.list .mdl-list__item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.list .mdl-list__item-primary-content {
+    padding: 8px;
+    min-height: inherit;
+    font-size: inherit;
+}
