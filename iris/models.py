@@ -85,6 +85,12 @@ class Response(db.Model):
                           primary_key=True)
     response = db.Column(db.Text)
 
+    def __init__(self, keyword, course_id, response):
+        """Creates a new Response-record connected to course_id."""
+        self.keyword =keyword
+        self.course_id = course_id
+        self.response = response
+
     def __repr__(self):
         """A textual representation of the class."""
         return '<Response {}-{} for course {} >'.format(self.keyword,
