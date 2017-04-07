@@ -125,11 +125,13 @@ def handle_feedback(message, l_session, course_id):
 
 @socketio.on('lecturer_keyword_new')
 def handle_new_keyword(message):
+    """Receive json from lecturer and add keywords and associated response to the database."""
     course_id = message['course_id']
     if course_id not in rooms():
         return
     keywords = message['keywords']
     response = message['response']
+    print(message)
     for keyword in keywords.split(','):
         keyword = keyword.strip()
         new_keyword = models.Response(keyword, course_id, response)

@@ -1,5 +1,6 @@
 const buttonStart = document.getElementById('button_start')
 const buttonStop = document.getElementById('button_stop')
+const buttonResponse = document.getElementById('add_response')
 let socket = io()
 socket.emit('join', {'course_id': courseID})
 
@@ -33,6 +34,21 @@ buttonStop.onclick = function () {
   console.log('SESSION STOP')
   let data = {'session_control': 'stop', 'course_id': courseID}
   socket.emit('lecturer_send', data)
+}
+
+buttonResponse.onclick = function () {
+  console.log('Entering response scope')
+  let kField = $('#keywords')
+  let rField = $('#response')
+  if(kField.val() && rField.val() ) {
+    console.log('Sending keyword/response')
+    let data = {'keywords': kField.val(), 'response': rField.val(), 'course_id': courseID}
+    console.log(data)
+    socket.emit('lecturer_keyword_new', data);
+    kField.val('')
+    rField.val('')
+  }
+  return false
 }
 
 let actions = ['slow', 'fast', 'easy', 'hard']
@@ -133,4 +149,4 @@ showDialogButton.addEventListener('click', function () {
 })
 dialog.querySelector('.close').addEventListener('click', function () {
     dialog.close()
-});
+})
