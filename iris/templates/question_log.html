@@ -20,6 +20,9 @@
                             {{ q.question }}
                         </span>
                     </li>
+                    {% if q.response %}
+                        {{ q.response }}
+                    {% endif %}
                 {% endfor %}
             </ul>
             <hr>
