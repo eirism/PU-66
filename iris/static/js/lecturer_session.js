@@ -164,6 +164,7 @@ socket.on('new_response', function (msg) {
   }
 })
 
+//Disables newline on enter, allows shift-enter
 $('form').keydown(function (e) {
   if (e.keyCode === 13 && !e.shiftKey) {
     e.preventDefault()
