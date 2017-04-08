@@ -31,7 +31,7 @@ olefile==0.44
 packaging==16.8
 passlib==1.7.1
 pbr==1.10.0
-Pillow==4.1.0 --install-option="build_ext" --install-option="--disable-jpeg" --install-option="--disable-zlib"
+Pillow==4.1.0
 psycopg2==2.6.2
 py==1.4.32
 pycodestyle==2.3.1
