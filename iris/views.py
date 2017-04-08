@@ -34,7 +34,8 @@ def student_feedback(course):
                            course_id=course_id,
                            actions=actions,
                            active=l_session.active,
-                           questions=grouped_questions)
+                           questions=grouped_questions,
+                           course_code=course)
 
 
 @app.route('/lecturer')
@@ -49,7 +50,9 @@ def lecturer():
 
     """
     all_courses = models.Course.query.all()
-    return render_template('lecturer.html', my_courses=current_user.roles, courses=all_courses)
+    existing_courses = [course for course in all_courses if course not in current_user.roles]
+    return render_template('lecturer.html', my_courses=current_user.roles, courses=all_courses,
+                           existing_courses=existing_courses)
 
 
 @app.route('/lecturer/<course>/session')
@@ -69,7 +72,8 @@ def session_control(course):
                            counts=counts,
                            actions=actions,
                            active=l_session.active,
-                           questions=grouped_questions)
+                           questions=grouped_questions,
+                           course_code=course)
 
 
 def handle_question(message, l_session, course_id):
@@ -98,7 +102,7 @@ def handle_question(message, l_session, course_id):
             if similar_questions[0] == q.question:
                 group = q.group
     else:
-        group = max_group+1
+        group = max_group + 1
     keyword = extract_keyword(new_question)
     course_responses = models.Response.query.filter_by(course_id=course_id)
     matching_response = course_responses.filter_by(keyword=keyword).first()
@@ -249,7 +253,9 @@ def handle_lecturer_course_existing(message):
         return
     code = message['code']
     name = message['name']
-    existing_course = user_datastore.find_role(code=code, name=name)
+    existing_course = models.Course.query.filter_by(code=code).first_or_404()
+    if existing_course in current_user.roles:
+        return
     user_datastore.add_role_to_user(current_user, existing_course)
     db.session.commit()
 

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}IRIS - session{% endblock title %}
+{% block title %}IRIS - {{ course_code }}{% endblock title %}
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/lecturer_session.css') }}">
@@ -55,12 +55,20 @@
                 <span id="text_hard" class="mdl-badge" data-badge="{{ counts['hard'] }}">Hard</span>
             </div>
         </div>
-        <div class="mdl-card mdl-shadow--2dp chart">
-            <canvas id="speed"></canvas>
+        <div class="mdl-grid canvases">
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--3-col-tablet mdl-cell--4-col-phone">
+                <div class="mdl-card mdl-shadow--2dp chart">
+                    <canvas id="speed" width="200" height="225"></canvas>
+                </div>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--3-col-tablet mdl-cell--4-col-phone">
+                <div class="mdl-card mdl-shadow--2dp chart">
+                    <canvas id="difficulty" width="200" height="225"></canvas>
+                </div>
+            </div>
         </div>
-        <div class="mdl-card mdl-shadow--2dp chart">
-            <canvas id="difficulty"></canvas>
-        </div>
+
+
     </div>
     <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
         {% with msg = 'Here are the questions asked by your students!' %}
@@ -74,8 +82,8 @@
     <script src="{{ url_for('static', filename="js/vendor/socket.io-1.4.5.js") }}"></script>
     <script src="{{ url_for('static', filename="js/vendor/jquery-3.1.1.min.js") }}"></script>
     <script>
-      let courseID = {{ course_id }};
-      let sessionActive = {{ active|tojson }};
+      let courseID = {{ course_id }}
+      let sessionActive = {{ active|tojson }}
     </script>
     <script src="{{ url_for('static', filename='js/lecturer_session.js') }}"></script>
 {% endblock scripts %}

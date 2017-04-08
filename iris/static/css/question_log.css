@@ -1,8 +1,13 @@
+.is-small-screen .questions-log {
+    max-height: inherit;
+    overflow-y: inherit;
+}
+
 .questions-log {
     border-top: 1px solid rgba(0, 0, 0, .1);
     padding: 8px;
     overflow-y: auto;
-    max-height: 700px;
+    max-height: 500px;
 }
 
 .questions-log ul {
@@ -11,4 +16,17 @@
 
 .questions-log .mdl-list__item {
     padding: 8px;
+    font-size: inherit;
+    min-height: inherit;
+}
+
+.questions-log p {
+    margin-bottom: 0;
+    padding: 8px;
+    color: rgba(0, 0, 0, .54);
+    font-style: italic;
+}
+
+.questions-log hr {
+    margin: 0;
 }
