@@ -129,7 +129,7 @@ def handle_feedback(message, l_session, course_id):
 
 @socketio.on('lecturer_keyword_new')
 def handle_new_keyword(message):
-    """Receive json from lecturer and add keywords and associated response to the database."""
+    """Receive json from lecturer and add keywords and associated response to the database. Push updates"""
     course_id = message['course_id']
     if course_id not in rooms():
         return
