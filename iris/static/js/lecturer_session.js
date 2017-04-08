@@ -68,6 +68,7 @@ socket.on('lecturer_recv', function (msg) {
   } else if (msg.hasOwnProperty('question')) {
     let question = msg['question'][0]
     let groupNum = msg['question'][1]
+    let response = msg['question'][2]
     let questionList = $('#questions-' + groupNum)
     if (!questionList.length) {
       questionList = $('<ul>', {id: 'questions-' + groupNum, 'class': 'mdl-list'})
@@ -75,7 +76,11 @@ socket.on('lecturer_recv', function (msg) {
       questionLog.prepend('<hr>')
       questionLog.prepend(questionList)
     }
-    questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>')
+    if (response === null) {
+      questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>')
+    } else {
+      questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>' + '&emsp; <i>Response: </i>' +  response)
+    }
   } else if (msg.hasOwnProperty('active')) {
     console.log(msg['active'])
     if (msg['active']) {

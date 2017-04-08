@@ -136,6 +136,20 @@ def handle_new_keyword(message):
         keyword = keyword.strip()
         new_keyword = models.Response(keyword, course_id, response)
         db.session.add(new_keyword)
+    l_session = get_lecture_session(course_id)
+    questions = get_and_group_questions(l_session.session_id)
+    for group in questions:
+        for question in questions[group]:
+            old_question = get_question(l_session.session_id, question.question)
+            keyword = extract_keyword(old_question.question)
+            course_responses = models.Response.query.filter_by(course_id=course_id)
+            matching_response = course_responses.filter_by(keyword=keyword).first()
+            if matching_response is not None:
+                q_response = matching_response.response
+            else:
+                q_response = None
+            old_question.response = q_response
+            db.session.add(old_question)
     db.session.commit()
     emit('new_response', {'reload': True}, room=course_id)
 
@@ -259,6 +273,11 @@ def get_course_id(course_name):
 def get_lecture_session(course_id):
     """Retrieve the current session for the given course ID."""
     return get_model_or_create(models.LectureSession, {'course_id': course_id})
+
+
+def get_question(session_id, question):
+    return get_model_or_create(models.Questions, {'session_id': session_id,
+                                                  'question': question})
 
 
 def get_session_feedback(session_id, action_name):
