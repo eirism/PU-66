@@ -41,11 +41,11 @@ buttonResponse.onclick = function () {
   console.log('Entering response scope')
   let kField = $('#keywords')
   let rField = $('#response')
-  if(kField.val() && rField.val() ) {
+  if (kField.val() && rField.val()) {
     console.log('Sending keyword/response')
     let data = {'keywords': kField.val(), 'response': rField.val(), 'course_id': courseID}
     console.log(data)
-    socket.emit('lecturer_keyword_new', data);
+    socket.emit('lecturer_keyword_new', data)
     kField.val('')
     rField.val('')
   }
@@ -85,7 +85,7 @@ socket.on('lecturer_recv', function (msg) {
     if (response === null) {
       questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>')
     } else {
-      questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>' + '&emsp; <i>Response: </i>' +  response)
+      questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>' + '&emsp; <i>Response: </i>' + response)
     }
   } else if (msg.hasOwnProperty('active')) {
     console.log(msg['active'])
@@ -154,28 +154,29 @@ let difficulty = new Chart(ctxDifficulty, {
 let dialog = document.querySelector('dialog')
 let showDialogButton = document.querySelector('#show-dialog')
 if (!dialog.showModal) {
-    dialogPolyfill.registerDialog(dialog)
+  dialogPolyfill.registerDialog(dialog)
 }
 showDialogButton.addEventListener('click', function () {
-    dialog.showModal()
-    modal = true
+  dialog.showModal()
+  modal = true
 })
+
 dialog.querySelector('.close').addEventListener('click', function () {
-    dialog.close()
-    modal = false
+  dialog.close()
+  modal = false
 })
 
 socket.on('new_response', function (msg) {
   console.log('new response received')
   localStorage.setItem('modal_open', modal)
-  if(msg.hasOwnProperty('reload')) {
-    if(msg['reload']) {
+  if (msg.hasOwnProperty('reload')) {
+    if (msg['reload']) {
       window.location.reload(true)
     }
   }
 })
 
-//Disables newline on enter, allows shift-enter
+// Disables newline on enter, allows shift-enter
 $('form').keydown(function (e) {
   if (e.keyCode === 13 && !e.shiftKey) {
     e.preventDefault()

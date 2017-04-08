@@ -87,7 +87,7 @@ class Response(db.Model):
 
     def __init__(self, keyword, course_id, response):
         """Creates a new Response-record connected to course_id."""
-        self.keyword =keyword
+        self.keyword = keyword
         self.course_id = course_id
         self.response = response
 
