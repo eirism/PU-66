@@ -2,6 +2,7 @@ const buttonStart = document.getElementById('button_start')
 const buttonStop = document.getElementById('button_stop')
 const buttonResponse = document.getElementById('add_response')
 let socket = io()
+let modal
 socket.emit('join', {'course_id': courseID})
 
 function disableStart () {
@@ -146,7 +147,26 @@ if (!dialog.showModal) {
 }
 showDialogButton.addEventListener('click', function () {
     dialog.showModal()
+    modal = true
 })
 dialog.querySelector('.close').addEventListener('click', function () {
     dialog.close()
+    modal = false
+})
+
+socket.on('new_response', function (msg) {
+  console.log('new response received')
+  localStorage.setItem('modal_open', modal)
+  if(msg.hasOwnProperty('reload')) {
+    if(msg['reload']) {
+      window.location.reload(true)
+    }
+  }
+})
+
+$('form').keydown(function (e) {
+  if (e.keyCode === 13 && !e.shiftKey) {
+    e.preventDefault()
+    buttonResponse.click()
+  }
 })

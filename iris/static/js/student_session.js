@@ -172,3 +172,13 @@ $('textarea').keydown(function (e) {
     questionButton.click()
   }
 })
+
+//New response exists and questions should be updated to display possible responses
+socket.on('new_response', function (msg) {
+  console.log('new response received')
+  if(msg.hasOwnProperty('reload')) {
+    if(msg['reload']) {
+      window.location.reload(true)
+    }
+  }
+})

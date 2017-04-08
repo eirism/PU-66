@@ -137,6 +137,7 @@ def handle_new_keyword(message):
         new_keyword = models.Response(keyword, course_id, response)
         db.session.add(new_keyword)
     db.session.commit()
+    emit('new_response', {'reload': True}, room=course_id)
 
 
 @socketio.on('student_send')
