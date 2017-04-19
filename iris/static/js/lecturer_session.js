@@ -1,6 +1,8 @@
 const buttonStart = document.getElementById('button_start')
 const buttonStop = document.getElementById('button_stop')
+const buttonResponse = document.getElementById('add_response')
 let socket = io()
+let modal
 socket.emit('join', {'course_id': courseID})
 
 function disableStart () {
@@ -35,6 +37,21 @@ buttonStop.onclick = function () {
   socket.emit('lecturer_send', data)
 }
 
+buttonResponse.onclick = function () {
+  console.log('Entering response scope')
+  let kField = $('#keywords')
+  let rField = $('#response')
+  if (kField.val() && rField.val()) {
+    console.log('Sending keyword/response')
+    let data = {'keywords': kField.val(), 'response': rField.val(), 'course_id': courseID}
+    console.log(data)
+    socket.emit('lecturer_keyword_new', data)
+    kField.val('')
+    rField.val('')
+  }
+  return false
+}
+
 let actions = ['slow', 'fast', 'easy', 'hard']
 
 socket.on('lecturer_recv', function (msg) {
@@ -55,6 +72,7 @@ socket.on('lecturer_recv', function (msg) {
     }
     let question = msg['question'][0]
     let groupNum = msg['question'][1]
+    let response = msg['question'][2]
     let questionList = $('#questions-' + groupNum)
     if (!questionList.length) {
       questionList = $('<ul>', {id: 'questions-' + groupNum, 'class': 'mdl-list'})
@@ -64,7 +82,11 @@ socket.on('lecturer_recv', function (msg) {
       }
       questionLog.prepend(questionList)
     }
-    questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>')
+    if (response === null) {
+      questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>')
+    } else {
+      questionList.prepend('<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">person</i>' + question + '</span></li>' + '&emsp; <i>Response: </i>' + response)
+    }
   } else if (msg.hasOwnProperty('active')) {
     console.log(msg['active'])
     if (msg['active']) {
@@ -126,5 +148,38 @@ let difficulty = new Chart(ctxDifficulty, {
   },
   options: {
     responsive: false
+  }
+})
+
+let dialog = document.querySelector('dialog')
+let showDialogButton = document.querySelector('#show-dialog')
+if (!dialog.showModal) {
+  dialogPolyfill.registerDialog(dialog)
+}
+showDialogButton.addEventListener('click', function () {
+  dialog.showModal()
+  modal = true
+})
+
+dialog.querySelector('.close').addEventListener('click', function () {
+  dialog.close()
+  modal = false
+})
+
+socket.on('new_response', function (msg) {
+  console.log('new response received')
+  localStorage.setItem('modal_open', modal)
+  if (msg.hasOwnProperty('reload')) {
+    if (msg['reload']) {
+      window.location.reload(true)
+    }
+  }
+})
+
+// Disables newline on enter, allows shift-enter
+$('form').keydown(function (e) {
+  if (e.keyCode === 13 && !e.shiftKey) {
+    e.preventDefault()
+    buttonResponse.click()
   }
 })
