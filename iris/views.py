@@ -142,11 +142,22 @@ def handle_new_keyword(message):
     keywords = message['keywords']
     response = message['response']
     print(message)
+    l_session = get_lecture_session(course_id)
+    existing_responses = models.Response.query.filter_by(course_id=course_id).all()
+    existing_keywords = list()
+    for existing_response in existing_responses:
+        existing_keywords.append(existing_response.keyword)
     for keyword in keywords.split(','):
         keyword = keyword.strip()
-        new_keyword = models.Response(keyword, course_id, response)
-        db.session.add(new_keyword)
-    l_session = get_lecture_session(course_id)
+        if(keyword not in existing_keywords):
+            new_keyword = models.Response(keyword, course_id, response)
+            db.session.add(new_keyword)
+        elif (keyword in existing_keywords):
+            old_response = get_response(keyword, course_id)
+            old_response.response = response
+            db.session.add(old_response)
+        else:
+            continue
     questions = get_and_group_questions(l_session.session_id)
     for group in questions:
         for question in questions[group]:
@@ -289,6 +300,11 @@ def get_lecture_session(course_id):
 
 def get_question(question_id):
     return get_model_or_create(models.Questions, {'question_id': question_id})
+
+
+def get_response(keyword, course_id):
+    return get_model_or_create(models.Response, {'keyword': keyword,
+                                                 'course_id': course_id})
 
 
 def get_session_feedback(session_id, action_name):
