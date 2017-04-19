@@ -150,7 +150,7 @@ def handle_new_keyword(message):
     questions = get_and_group_questions(l_session.session_id)
     for group in questions:
         for question in questions[group]:
-            old_question = get_question(l_session.session_id, question.question)
+            old_question = get_question(question.question_id)
             keyword = extract_keyword(old_question.question)
             course_responses = models.Response.query.filter_by(course_id=course_id)
             matching_response = course_responses.filter_by(keyword=keyword).first()
@@ -287,9 +287,8 @@ def get_lecture_session(course_id):
     return get_model_or_create(models.LectureSession, {'course_id': course_id})
 
 
-def get_question(session_id, question):
-    return get_model_or_create(models.Questions, {'session_id': session_id,
-                                                  'question': question})
+def get_question(question_id):
+    return get_model_or_create(models.Questions, {'question_id': question_id})
 
 
 def get_session_feedback(session_id, action_name):
