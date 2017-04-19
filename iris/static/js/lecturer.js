@@ -1,6 +1,7 @@
 const options = {valueNames: ['name']}
 const courseList = new List('course-existing', options)
 const searchField = document.getElementById('course-search')
+const snackbar = document.getElementById('course_added_notif')
 
 let socket = io()
 
@@ -42,32 +43,40 @@ function applyFilter () {
 }
 
 applyFilter()
-courseList.on('searchComplete', applyFilter) // TODO: fix this
+courseList.on('searchComplete', applyFilter)
 
-$('.name').click(function (e) {
-  e.preventDefault()
+/* eslint-disable*/
+function addCourse (e) {
+  // e.preventDefault()
 
-  let course = $.trim($(this).text).split(' - ')
-  console.log('its me')
+  let course = $.trim(e.text).split(' - ')
 
   let courseCode = course[0]
   let courseName = course[1]
 
-  if (courseCode.val() && courseName.val()) {
+  if (courseCode && courseName) {
     console.log('Course assigned')
     socket.emit('lecturer_course_existing_send', {
-      'code': courseCode.val(),
-      'name': courseName.val()
+      'code': courseCode,
+      'name': courseName
     })
-    courseCode.val('')
-    courseName.val('')
+    searchField.value = ''
+    applyFilter()
   }
   return false
-})
+}
+/* eslint-enable*/
 
 socket.on('lecturer_course_existing_recv', function (msg) {
   let code = msg['code']
   let name = msg['name']
+
+  let data = {
+    message: code + ' - ' + name + ' has been added to your courses.',
+    timeout: 5000
+  }
+
+  snackbar.MaterialSnackbar.showSnackbar(data)
 
   $('#table_courses').children().append(
     '<tr>' +

@@ -56,20 +56,46 @@ class Questions(db.Model):
     timestamp = db.Column(db.DateTime)
     answered = db.Column(db.Boolean, default=False)
     flagged = db.Column(db.Boolean, default=False)
+    response = db.Column(db.Text, nullable=True)
     group = db.Column(db.Integer)
 
-    def __init__(self, session_id, question, group):
+    def __init__(self, session_id, question, group, response=None):
         """Create a new question, connected to session_id."""
         self.session_id = session_id
         self.question = question
         self.timestamp = datetime.utcnow()
         self.group = group
+        if response is not None:
+            self.response = response
 
     def __repr__(self):
         """A textual representation of the class."""
         return '<Question {} for session {}: {} >'.format(self.question_id,
                                                           self.session_id,
                                                           self.question)
+
+
+class Response(db.Model):
+    """Represents keyword-response pairs"""
+
+    __tablename__ = 'response'
+    keyword = db.Column(db.Text, primary_key=True)
+    course_id = db.Column(db.Integer,
+                          db.ForeignKey('course.id'),
+                          primary_key=True)
+    response = db.Column(db.Text)
+
+    def __init__(self, keyword, course_id, response):
+        """Creates a new Response-record connected to course_id."""
+        self.keyword = keyword
+        self.course_id = course_id
+        self.response = response
+
+    def __repr__(self):
+        """A textual representation of the class."""
+        return '<Response {}-{} for course {} >'.format(self.keyword,
+                                                        self.response,
+                                                        self.course_id)
 
 
 courses_users = db.Table('courses_users',

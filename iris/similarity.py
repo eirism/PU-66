@@ -3,6 +3,15 @@ from collections import defaultdict
 
 
 def similarity(inputTexts, inputText, threshold):
+    """
+
+        The comparison algorithm for questions.
+
+        Creates a Vector Space Model of questions.
+        Calculates the cosine similarity between different questions in this space.
+        Returns a list of similar questions.
+
+        """
     documents = inputTexts
 
     # Remove common words and tokenize
@@ -20,36 +29,19 @@ def similarity(inputTexts, inputText, threshold):
              for text in texts]
 
     dictionary = corpora.Dictionary(texts)
-    # Store the dictionary??
-
     corpus = [dictionary.doc2bow(text) for text in texts]
-    # store to disk, for later use??
-
     lsi = models.LsiModel(corpus, id2word=dictionary, num_topics=2)
-
-    # Doc is the input we compare to corpus for similarities
     doc = str(inputText)
     vec_bow = dictionary.doc2bow(doc.lower().split())
-    vec_lsi = lsi[vec_bow]  # convert the query to LSI space
+    # convert the query to LSI space
+    vec_lsi = lsi[vec_bow]
     index = similarities.MatrixSimilarity(lsi[corpus])
     sims = index[vec_lsi]
-    # print(list(enumerate(sims)))
-
     sims = sorted(enumerate(sims), key=lambda item: -item[1])
     print(sims)
 
-    # Create a list of questions with higher cosine similarity than threshold
     similar_questions = list()
     for sim in sims:
         if sim[1] > threshold:
             similar_questions.append(inputTexts[sim[0]])
     return similar_questions
-
-
-# documents = ["This is not a test question related to the testing",
-#              "Python is great question"]
-
-# compare = "This is test question"
-
-# a = similarity(documents, compare, 0.8)
-# print(a)
