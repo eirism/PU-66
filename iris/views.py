@@ -149,10 +149,10 @@ def handle_new_keyword(message):
         existing_keywords.append(existing_response.keyword)
     for keyword in keywords.split(','):
         keyword = keyword.strip()
-        if(keyword not in existing_keywords):
+        if keyword not in existing_keywords:
             new_keyword = models.Response(keyword, course_id, response)
             db.session.add(new_keyword)
-        elif (keyword in existing_keywords):
+        elif keyword in existing_keywords:
             old_response = get_response(keyword, course_id)
             old_response.response = response
             db.session.add(old_response)
