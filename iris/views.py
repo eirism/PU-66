@@ -3,6 +3,7 @@
 from flask import render_template
 from flask_security import login_required, current_user
 from flask_socketio import emit, join_room, rooms
+import indicoio
 
 from iris import app, models, db, socketio, user_datastore, similarity
 
@@ -102,9 +103,17 @@ def handle_question(message, l_session, course_id):
                 group = q.group
     else:
         group = max_group + 1
-    s_question = models.Questions(l_session.session_id, new_question, group)
+    keyword = extract_keyword(new_question)
+    course_responses = models.Response.query.filter_by(course_id=course_id)
+    matching_response = course_responses.filter_by(keyword=keyword).first()
+    if matching_response is not None:
+        q_response = matching_response.response
+    else:
+        q_response = None
+    s_question = models.Questions(l_session.session_id, new_question, group,
+                                  response=q_response)
     db.session.add(s_question)
-    response = {'question': [new_question, group]}
+    response = {'question': [new_question, group, q_response]}
     emit('student_recv', response, room=course_id)
     emit('lecturer_recv', response, room=course_id)
 
@@ -116,6 +125,54 @@ def handle_feedback(message, l_session, course_id):
     s_feedback.count += 1
     db.session.add(s_feedback)
     emit('lecturer_recv', {'action': [action, s_feedback.count]}, room=course_id)
+
+
+@socketio.on('lecturer_keyword_new')
+def handle_new_keyword(message):
+    """
+
+    Receive json from lecturer,
+    add keywords and associated response to the database.
+    Push updates
+
+    """
+    course_id = message['course_id']
+    if course_id not in rooms():
+        return
+    keywords = message['keywords']
+    response = message['response']
+    print(message)
+    l_session = get_lecture_session(course_id)
+    existing_responses = models.Response.query.filter_by(course_id=course_id).all()
+    existing_keywords = list()
+    for existing_response in existing_responses:
+        existing_keywords.append(existing_response.keyword)
+    for keyword in keywords.split(','):
+        keyword = keyword.strip()
+        if keyword not in existing_keywords:
+            new_keyword = models.Response(keyword, course_id, response)
+            db.session.add(new_keyword)
+        elif keyword in existing_keywords:
+            old_response = get_response(keyword, course_id)
+            old_response.response = response
+            db.session.add(old_response)
+        else:
+            continue
+    questions = get_and_group_questions(l_session.session_id)
+    for group in questions:
+        for question in questions[group]:
+            old_question = get_question(question.question_id)
+            keyword = extract_keyword(old_question.question)
+            course_responses = models.Response.query.filter_by(course_id=course_id)
+            matching_response = course_responses.filter_by(keyword=keyword).first()
+            if matching_response is not None:
+                q_response = matching_response.response
+            else:
+                q_response = None
+            old_question.response = q_response
+            db.session.add(old_question)
+    db.session.commit()
+    emit('new_response', {'reload': True}, room=course_id)
 
 
 @socketio.on('student_send')
@@ -241,6 +298,15 @@ def get_lecture_session(course_id):
     return get_model_or_create(models.LectureSession, {'course_id': course_id})
 
 
+def get_question(question_id):
+    return get_model_or_create(models.Questions, {'question_id': question_id})
+
+
+def get_response(keyword, course_id):
+    return get_model_or_create(models.Response, {'keyword': keyword,
+                                                 'course_id': course_id})
+
+
 def get_session_feedback(session_id, action_name):
     """
 
@@ -287,3 +353,22 @@ def get_and_group_questions(session_id):
     for question in all_questions:
         grouped_questions.setdefault(question.group, list()).append(question)
     return grouped_questions
+
+
+def extract_keyword(text):
+    """
+
+    Ask INDICO for the keyword in text.
+
+    Returns the most important word in text,
+    or None if there is none.
+    Calls .lower() on the word.
+
+    """
+    response = indicoio.keywords(text, version=2, top_n=1)
+    words = list(response.keys())
+    if len(words) == 1:
+        word = list(response.keys())[0].lower()
+    else:
+        word = None
+    return word
