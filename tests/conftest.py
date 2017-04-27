@@ -43,22 +43,18 @@ def db(app):
     return db
 
 
-@pytest.fixture(scope="function")
-def session(db):
+@pytest.fixture(scope="function", autouse=True)
+def session(db, monkeypatch):
     """
-    Create a session inside a transaction.
+    Prevent the session from being committed.
 
     Will roll back the changes on teardown.
     """
-    connection = db.engine.connect()
-    transaction = connection.begin()
-    options = dict(bind=connection, binds={})
-    session = db.create_scoped_session(options=options)
-    db.session = session
-    yield session
-    transaction.rollback()
-    connection.close()
-    session.remove()
+    remove = db.session.remove
+    monkeypatch.setattr(db.session, 'commit', db.session.flush)
+    monkeypatch.setattr(db.session, 'remove', lambda: None)
+    yield db.session
+    remove()
 
 
 @pytest.fixture(scope="function")
@@ -69,3 +65,11 @@ def logged_in_user(monkeypatch):
     monkeypatch.setattr('iris.views.current_user', default_user)
     monkeypatch.setattr('flask_login.current_user', default_user)
     return default_user
+
+
+@pytest.fixture()
+def create_default_course(session):
+    from iris import user_datastore
+    course = user_datastore.create_role(code="TDT4140", name="PU")
+    session.commit()
+    yield course
