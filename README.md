@@ -7,6 +7,7 @@ To run locally you need python3, pip, a database (Postgres is preferred) and an 
 
 ## Running locally
 The following environment variables needs to be set.
+
 | Variable       | Value |
 | -------------- | ----- |
 | SECRET_KEY     | A random value, keep it secret |
